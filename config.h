@@ -14,16 +14,16 @@ public:
     static bool hardwareInfo;//是否推送硬件信息
     static int hardwareInfoDPtime;//推送硬件信息循环次数
 
-    static int hardwareInfo_CPUuti;
-    static int hardwareInfo_CPUvolt;
-    static int hardwareInfo_GPUvolt;
-    static int hardwareInfo_CPUclk;
-    static int hardwareInfo_CPUpkg;
-    static int hardwareInfo_CPUtmp;
-    static int hardwareInfo_GPUMCuti;
-    static int hardwareInfo_GPUtmp;
-    static int hardwareInfo_GPUuti;
-    static int hardwareInfo_MENuti;
+    static bool hardwareInfo_CPUuti;
+    static bool hardwareInfo_CPUvolt;
+    static bool hardwareInfo_GPUvolt;
+    static bool hardwareInfo_CPUclk;
+    static bool hardwareInfo_CPUpkg;
+    static bool hardwareInfo_CPUtmp;
+    static bool hardwareInfo_GPUMCuti;
+    static bool hardwareInfo_GPUtmp;
+    static bool hardwareInfo_GPUuti;
+    static bool hardwareInfo_MENuti;
 
     static void hardwareInfoReload();
 

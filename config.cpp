@@ -6,6 +6,16 @@ bool config::setupPush=false;
 bool config::hardwareInfo=false;
 int config::hardwareInfoDPtime=2;
 
+ bool config::hardwareInfo_CPUuti=false;
+ bool config::hardwareInfo_CPUvolt=false;
+bool config::hardwareInfo_GPUvolt=false;
+ bool config::hardwareInfo_CPUclk=false;
+bool config::hardwareInfo_CPUpkg=false;
+ bool config::hardwareInfo_CPUtmp=false;
+bool config::hardwareInfo_GPUMCuti=false;
+bool config::hardwareInfo_GPUtmp=false;
+ bool config::hardwareInfo_GPUuti=false;
+ bool config::hardwareInfo_MENuti=false;
 config::config()
 {
     QFileInfo info("./config.ini");
