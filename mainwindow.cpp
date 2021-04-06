@@ -25,6 +25,17 @@ MainWindow::MainWindow(QWidget *parent)
         configFile->setValue("AUTOSETUP",false);
         configFile->setValue("OutputSetting/HARDWAREINFO",false);
         configFile->setValue("HARDWAREINFO/HARDWAREINFO_TIME",2);
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUuti",false);
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUvolt",false);
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUvolt",false);
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUclk",false);
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUpkg",false);
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUtmp",false);
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUMCuti",false);
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUtmp",false);
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUuti",false);
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_MENuti",false);
+
 
     }else
     {
@@ -56,10 +67,78 @@ MainWindow::MainWindow(QWidget *parent)
         config::hardwareInfoDPtime=configFile->value("HARDWAREINFO/HARDWAREINFO_TIME").toInt();
         ui->hwCycleTime->setValue(configFile->value("HARDWAREINFO/HARDWAREINFO_TIME").toInt());
 
+        bool TmpState;//临时使用储存状态值
+
+        TmpState=config::hardwareInfo_CPUuti=configFile->value("HARDWAREINFO/HARDWAREINFO_CPUuti").toBool();
+        if(TmpState==true)
+            ui->CPUutiChk->setCheckState(Qt::Checked);
+        else
+            ui->CPUutiChk->setCheckState(Qt::Unchecked);
+
+        TmpState=config::hardwareInfo_CPUvolt=configFile->value("HARDWAREINFO/HARDWAREINFO_CPUvolt").toBool();
+        if(TmpState==true)
+            ui->CPUvoltChk->setCheckState(Qt::Checked);
+        else
+            ui->CPUvoltChk->setCheckState(Qt::Unchecked);
+
+        TmpState=config::hardwareInfo_GPUvolt=configFile->value("HARDWAREINFO/HARDWAREINFO_GPUvolt").toBool();
+        if(TmpState==true)
+            ui->GPUvoltChk->setCheckState(Qt::Checked);
+        else
+            ui->GPUvoltChk->setCheckState(Qt::Unchecked);
+
+
+        TmpState=config::hardwareInfo_CPUclk=configFile->value("HARDWAREINFO/HARDWAREINFO_CPUclk").toBool();
+        if(TmpState==true)
+            ui->CPUclkChk->setCheckState(Qt::Checked);
+        else
+            ui->CPUclkChk->setCheckState(Qt::Unchecked);
+
+
+        TmpState=config::hardwareInfo_CPUpkg=configFile->value("HARDWAREINFO/HARDWAREINFO_CPUpkg").toBool();
+        if(TmpState==true)
+            ui->CPUpkgChk->setCheckState(Qt::Checked);
+        else
+            ui->CPUpkgChk->setCheckState(Qt::Unchecked);
+
+
+        TmpState=config::hardwareInfo_CPUtmp=configFile->value("HARDWAREINFO/HARDWAREINFO_CPUtmp").toBool();
+        if(TmpState==true)
+            ui->CPUtmpChk->setCheckState(Qt::Checked);
+        else
+            ui->CPUtmpChk->setCheckState(Qt::Unchecked);
+
+
+        TmpState=config::hardwareInfo_GPUMCuti=configFile->value("HARDWAREINFO/HARDWAREINFO_GPUMCuti").toBool();
+        if(TmpState==true)
+            ui->GPUMCutiChk->setCheckState(Qt::Checked);
+        else
+            ui->GPUMCutiChk->setCheckState(Qt::Unchecked);
+
+        TmpState=config::hardwareInfo_GPUtmp=configFile->value("HARDWAREINFO/HARDWAREINFO_GPUtmp").toBool();
+        if(TmpState==true)
+            ui->GPUtmpChk->setCheckState(Qt::Checked);
+        else
+            ui->GPUtmpChk->setCheckState(Qt::Unchecked);
+
+
+        TmpState=config::hardwareInfo_GPUuti=configFile->value("HARDWAREINFO/HARDWAREINFO_GPUuti").toBool();
+        if(TmpState==true)
+            ui->GPUutiChk->setCheckState(Qt::Checked);
+        else
+            ui->GPUutiChk->setCheckState(Qt::Unchecked);
+
+        TmpState=config::hardwareInfo_MENuti=configFile->value("HARDWAREINFO/HARDWAREINFO_MENuti").toBool();
+        if(TmpState==true)
+            ui->MENutiChk->setCheckState(Qt::Checked);
+        else
+            ui->MENutiChk->setCheckState(Qt::Unchecked);
+
 
 
     }
 
+    delete  configFile;
     connect(&THC,&ThreadController::singal_showMeg,this,&MainWindow::singalMsg);
 
 
@@ -202,11 +281,87 @@ void MainWindow::on_saveBtn_clicked()
 
     configFile->setValue("HARDWAREINFO/HARDWAREINFO_TIME",ui->hwCycleTime->value());
 
+    if(ui->CPUutiChk->checkState()==Qt::Checked){
+        config::hardwareInfo_CPUuti=true;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUuti",true);
+    }else{
+        config::hardwareInfo_CPUuti=false;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUuti",false);
+    }
 
+    if(ui->CPUvoltChk->checkState()==Qt::Checked){
+        config::hardwareInfo_CPUvolt=true;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUvolt",true);
+    }else{
+        config::hardwareInfo_CPUvolt=false;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUvolt",false);
+    }
 
+    if(ui->MENutiChk->checkState()==Qt::Checked){
+        config::hardwareInfo_MENuti=true;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_MENuti",true);
+    }else{
+        config::hardwareInfo_MENuti=false;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_MENuti",false);
+    }
 
+    if(ui->CPUclkChk->checkState()==Qt::Checked){
+        config::hardwareInfo_CPUclk=true;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUclk",true);
+    }else{
+        config::hardwareInfo_CPUclk=false;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUclk",false);
+    }
 
-    delete [] configFile;
+    if(ui->CPUpkgChk->checkState()==Qt::Checked){
+        config::hardwareInfo_CPUpkg=true;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUpkg",true);
+    }else{
+        config::hardwareInfo_CPUpkg=false;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUpkg",false);
+    }
+
+    if(ui->CPUtmpChk->checkState()==Qt::Checked){
+        config::hardwareInfo_CPUtmp=true;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUtmp",true);
+    }else{
+        config::hardwareInfo_CPUtmp=false;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUtmp",false);
+    }
+
+    if(ui->GPUtmpChk->checkState()==Qt::Checked){
+        config::hardwareInfo_GPUtmp=true;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUtmp",true);
+    }else{
+        config::hardwareInfo_GPUtmp=false;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUtmp",false);
+    }
+
+    if(ui->GPUutiChk->checkState()==Qt::Checked){
+        config::hardwareInfo_GPUuti=true;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUuti",true);
+    }else{
+        config::hardwareInfo_GPUuti=false;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUuti",false);
+    }
+
+    if(ui->GPUvoltChk->checkState()==Qt::Checked){
+        config::hardwareInfo_GPUvolt=true;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUvolt",true);
+    }else{
+        config::hardwareInfo_GPUvolt=false;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUvolt",false);
+    }
+
+    if(ui->GPUMCutiChk->checkState()==Qt::Checked){
+        config::hardwareInfo_GPUMCuti=true;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUMCuti",true);
+    }else{
+        config::hardwareInfo_GPUMCuti=false;
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUMCuti",false);
+    }
+
+    delete  configFile;
 }
 
 void MainWindow::on_hwCycleTime_valueChanged(int arg1)
@@ -279,3 +434,8 @@ void MainWindow::saveHardwareInfoSetting()
     //delete [] configFile;
 }
 
+
+void MainWindow::on_aboutBtn_clicked()
+{
+    QDesktopServices::openUrl(QUrl("https://blog.hk560.top/2021/03/26/Aida64ForEsp8266/"));
+}

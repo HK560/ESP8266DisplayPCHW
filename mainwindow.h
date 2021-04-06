@@ -6,6 +6,7 @@
 #include <QMainWindow>
 #include <QThread>
 #include "threadController.h"
+#include<QDesktopServices>
 //#include "config.h"
 
 #include <QSettings>
@@ -58,6 +59,8 @@ private slots:
     void saveHardwareInfoSetting();
 
 
+
+    void on_aboutBtn_clicked();
 
 private:
     Ui::MainWindow *ui;
