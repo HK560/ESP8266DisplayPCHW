@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icon/avatar_hk560.jpg</file>
+    </qresource>
+</RCC>

@@ -11,6 +11,10 @@
 
 #include <QSettings>
 #include<QFileInfo>
+#include<QWidget>
+#include<QtGui>
+#include <QSystemTrayIcon>
+
 
 //#include "ThreadDoWork.h"
 
@@ -62,8 +66,12 @@ private slots:
 
     void on_aboutBtn_clicked();
 
+    void on_hideBtn_clicked();
+    void on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason);
+
 private:
     Ui::MainWindow *ui;
     ThreadController THC;
+    QSystemTrayIcon* mySysTrayIcon;
 };
 #endif // MAINWINDOW_H

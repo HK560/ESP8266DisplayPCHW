@@ -8,10 +8,14 @@ dataOutputThread::dataOutputThread(QObject *parent):QObject(parent)
 
 void dataOutputThread::openCom()
 {
-    qDebug()<<"openCom";
+    qDebug()<<"dataOutputThread::openCom()";
     serial= new QSerialPort;
     serial->setPortName(aida64ReaderForESP8266::portName);
     serial->open(QIODevice::ReadWrite);
+    if(serial->isOpen()==false){
+        emit showMessage("串口未打开或未找到，请确认串口能否正常通信");
+         qDebug()<<"comOpenFailed";
+        return;}
     serial->setBaudRate(QSerialPort::Baud115200);
     serial->setDataBits(QSerialPort::Data8);
     serial->setParity(QSerialPort::NoParity);
@@ -21,9 +25,10 @@ void dataOutputThread::openCom()
 
 void dataOutputThread::outputData()
 {
-    qDebug()<<"outputData";
+    qDebug()<<"dataOutputThread::outputData()";
     if(serial->isOpen()==false){
         emit showMessage("串口未打开或未找到，请确认串口能否正常通信");
+        qDebug()<<"comOpenFailed";
         return;
     }
     while(config::setupPush==true){//判断是否启动推送

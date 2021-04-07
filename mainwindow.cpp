@@ -9,6 +9,13 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    mySysTrayIcon=new QSystemTrayIcon(this);
+    QIcon icon=QIcon(":/icon/avatar_hk560.jpg");
+    mySysTrayIcon->setIcon(icon);
+    mySysTrayIcon->setToolTip("ESP8266PCReader");
+    mySysTrayIcon->show();
+
+
     ui->setupUi(this);
     ui->comChoBox->clear();
     foreach(const QSerialPortInfo &info,QSerialPortInfo::availablePorts())
@@ -152,7 +159,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->GPUtmpChk,&QCheckBox::stateChanged,this,&MainWindow::saveHardwareInfoSetting);
     connect(ui->GPUMCutiChk,&QCheckBox::stateChanged,this,&MainWindow::saveHardwareInfoSetting);
     connect(ui->MENutiChk,&QCheckBox::stateChanged,this,&MainWindow::saveHardwareInfoSetting);
-
+    connect(mySysTrayIcon,&QSystemTrayIcon::activated,this,&MainWindow::on_activatedSysTrayIcon);
 
 
     if(config::setupPush==true){
@@ -361,6 +368,7 @@ void MainWindow::on_saveBtn_clicked()
         configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUMCuti",false);
     }
 
+    QMessageBox::about(NULL,"信息","已保存设置");
     delete  configFile;
 }
 
@@ -438,4 +446,23 @@ void MainWindow::saveHardwareInfoSetting()
 void MainWindow::on_aboutBtn_clicked()
 {
     QDesktopServices::openUrl(QUrl("https://blog.hk560.top/2021/03/26/Aida64ForEsp8266/"));
+}
+
+void MainWindow::on_hideBtn_clicked()
+{
+    this->hide();
+//    mySysTrayIcon=new QSystemTrayIcon(this);
+//    QIcon icon=QIcon(":/icon/avatar_hk560.jpg");
+//    mySysTrayIcon->setIcon(icon);
+//    mySysTrayIcon->setToolTip("ESP8266PCReader");
+//    mySysTrayIcon->show();
+
+
+}
+
+void MainWindow::on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason)
+{
+    if(reason==QSystemTrayIcon::Trigger){
+        this->show();
+    }
 }
