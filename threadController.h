@@ -19,14 +19,14 @@ signals:
     void singal_startOpenCom();
     void singal_startCloseCom();
     void singal_showMeg(const QString &str);
-    void singal_outputState(bool run);
+    void singal_outputState(const bool run);
     //void singal_closeThread();
 
 
 public  slots:
     void on_revResult(const QString &str);
     void on_msgShow(const QString &str);
-    void on_outputState(bool run);
+    void on_outputState(const bool run);
 private:
     QThread m_dataQThread;
     dataOutputThread *m_worker;

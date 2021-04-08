@@ -17,7 +17,7 @@ public:
 signals:
     void resultReady(const QString &str);
     void showMessage(const QString &str);
-    void outputState(bool run);
+    void outputState(const bool run);
 public slots:
     void openCom();
     void outputData();

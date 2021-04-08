@@ -403,7 +403,7 @@ void MainWindow::on_saveBtn_clicked()
         configFile->setValue("AUTOMinimize",false);
     }
 
-    QMessageBox::about(NULL,"信息","已保存设置");
+    QMessageBox::about(NULL,"信息","已保存设置到程序根目录下的配置文件");
     delete  configFile;
 }
 
@@ -516,6 +516,13 @@ void MainWindow::on_hwChkBox_stateChanged(int arg1)
 
 void MainWindow::on_stopBtn_clicked()
 {
-    config::startpush=false;
-    ui->outputStateLB->setText("停止中");
+    if(config::startpush==false){
+        ui->outputStateLB->setText("未运行");
+    }else{
+        ui->outputStateLB->setText("停止中");
+        config::startpush=false;
+    }
+
+
+
 }

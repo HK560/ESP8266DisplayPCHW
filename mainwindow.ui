@@ -496,7 +496,7 @@
        </font>
       </property>
       <property name="text">
-       <string>ESP8266_PCReader 0.1(210408)</string>
+       <string>ESP8266_PCReader 0.1(2104081921)</string>
       </property>
       <property name="textFormat">
        <enum>Qt::AutoText</enum>

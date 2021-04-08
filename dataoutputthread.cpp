@@ -14,6 +14,7 @@ void dataOutputThread::openCom()
     serial->open(QIODevice::ReadWrite);
     if(serial->isOpen()==false){
         emit showMessage("串口未打开或未找到，请确认串口能否正常通信");
+        emit outputState(false);
          qDebug()<<"comOpenFailed";
         return;}
     serial->setBaudRate(QSerialPort::Baud115200);
@@ -28,6 +29,8 @@ void dataOutputThread::outputData()
     qDebug()<<"dataOutputThread::outputData()";
     if(serial->isOpen()==false){
         emit showMessage("串口未打开或未找到，请确认串口能否正常通信");
+        emit outputState(false);
+        config::startpush=false;
         qDebug()<<"comOpenFailed";
         return;
     }
