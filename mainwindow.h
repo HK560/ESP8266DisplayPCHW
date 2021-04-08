@@ -69,6 +69,8 @@ private slots:
     void on_hideBtn_clicked();
     void on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason);
 
+    void on_minniChk_stateChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     ThreadController THC;

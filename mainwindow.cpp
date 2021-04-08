@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
         qDebug()<<"建立设定config";
         configFile->setValue("COM","COM1");
         configFile->setValue("AUTOSETUP",false);
+        configFile->setValue("AUTOMinimize",false);
         configFile->setValue("OutputSetting/HARDWAREINFO",false);
         configFile->setValue("HARDWAREINFO/HARDWAREINFO_TIME",2);
         configFile->setValue("HARDWAREINFO/HARDWAREINFO_CPUuti",false);
@@ -54,6 +55,14 @@ MainWindow::MainWindow(QWidget *parent)
             ui->comChoBox->setCurrentIndex(index);
         }
 
+
+        if(configFile->value("AUTOMinimize").toBool()==true){
+            ui->minniChk->setCheckState(Qt::Checked);
+            config::setupMinimize=true;
+        }else{
+            ui->minniChk->setCheckState(Qt::Unchecked);
+            config::setupMinimize=false;
+        }
 
         if(configFile->value("AUTOSETUP").toBool()==true){
             ui->autoBox->setCheckState(Qt::Checked);
@@ -368,6 +377,13 @@ void MainWindow::on_saveBtn_clicked()
         configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUMCuti",false);
     }
 
+
+    if(ui->minniChk->checkState()==Qt::Checked){
+        configFile->setValue("AUTOMinimize",true);
+    }else{
+        configFile->setValue("AUTOMinimize",false);
+    }
+
     QMessageBox::about(NULL,"信息","已保存设置");
     delete  configFile;
 }
@@ -465,4 +481,11 @@ void MainWindow::on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reaso
     if(reason==QSystemTrayIcon::Trigger){
         this->show();
     }
+}
+
+void MainWindow::on_minniChk_stateChanged(int arg1)
+{
+//    if(ui->minniChk->checkState()==Qt::Checked){
+
+//    }
 }

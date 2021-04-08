@@ -11,6 +11,8 @@ public:
     config();
 
     static bool setupPush;//是否启动推送
+    static bool setupMinimize;
+
     static bool hardwareInfo;//是否推送硬件信息
     static int hardwareInfoDPtime;//推送硬件信息循环次数
 
@@ -24,6 +26,8 @@ public:
     static bool hardwareInfo_GPUtmp;
     static bool hardwareInfo_GPUuti;
     static bool hardwareInfo_MENuti;
+
+
 
     static void hardwareInfoReload();
 

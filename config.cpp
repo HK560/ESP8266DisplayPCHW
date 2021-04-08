@@ -3,6 +3,7 @@
 
 
 bool config::setupPush=false;
+bool config::setupMinimize=false;
 bool config::hardwareInfo=false;
 int config::hardwareInfoDPtime=2;
 
