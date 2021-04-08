@@ -156,6 +156,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     delete  configFile;
     connect(&THC,&ThreadController::singal_showMeg,this,&MainWindow::singalMsg);
+    connect(&THC,&ThreadController::singal_outputState,this,&MainWindow::outputState);
 
 
     connect(ui->CPUclkChk,&QCheckBox::stateChanged,this,&MainWindow::saveHardwareInfoSetting);
@@ -173,9 +174,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     if(config::setupPush==true){
         qDebug()<<"执行自动推送";
+        config::startpush=true;
         THC.startOpenCom();
         THC.startOutput();
     }
+
+    this->setFixedSize(390,500);
+
 }
 
 MainWindow::~MainWindow()
@@ -191,20 +196,24 @@ void MainWindow::on_openComBtn_clicked()
     qDebug("THC.startOpenCom()");
     aida64ReaderForESP8266::portName=ui->comChoBox->currentText();
     THC.startOpenCom();
+
 }
 
 void MainWindow::on_autoSetMsgBtn_clicked()
 {
+    ui->outputStateLB->setText("启动中");
     config::hardwareInfoDPtime=ui->hwCycleTime->value();
+    config::startpush=true;
+
     if(ui->hwChkBox->checkState()==Qt::Checked){
         config::hardwareInfo=true;
     }else
         config::hardwareInfo=false;
 
-    if(ui->autoBox->checkState()==Qt::Checked){
-        config::setupPush=true;
-    }else
-        config::setupPush=false;
+//    if(ui->autoBox->checkState()==Qt::Checked){
+//        config::setupPush=true;
+//    }else
+//        config::setupPush=false;
 
     qDebug()<<"THC.startOutput()";
     THC.startOutput();
@@ -215,6 +224,7 @@ void MainWindow::on_closeBtn_clicked()
 {
     //closeComPort();
     THC.startCloseCom();
+    config::startpush=false;
     QMessageBox::about(NULL,"提示","已经关闭串口");
 }
 
@@ -263,6 +273,15 @@ void MainWindow::on_serComBtn_clicked()
 void MainWindow::singalMsg(QString str)
 {
     QMessageBox::about(NULL,"信息",str);
+}
+
+void MainWindow::outputState(bool run)
+{
+    if(run==true){
+        ui->outputStateLB->setText("运行中");
+    }else{
+        ui->outputStateLB->setText("未运行");
+    }
 }
 
 void MainWindow::on_autoBox_clicked(bool checked)
@@ -461,7 +480,7 @@ void MainWindow::saveHardwareInfoSetting()
 
 void MainWindow::on_aboutBtn_clicked()
 {
-    QDesktopServices::openUrl(QUrl("https://blog.hk560.top/2021/03/26/Aida64ForEsp8266/"));
+    QDesktopServices::openUrl(QUrl("https://blog.hk560.top/Aida64ForEsp8266/"));
 }
 
 void MainWindow::on_hideBtn_clicked()
@@ -488,4 +507,15 @@ void MainWindow::on_minniChk_stateChanged(int arg1)
 //    if(ui->minniChk->checkState()==Qt::Checked){
 
 //    }
+}
+
+void MainWindow::on_hwChkBox_stateChanged(int arg1)
+{
+
+}
+
+void MainWindow::on_stopBtn_clicked()
+{
+    config::startpush=false;
+    ui->outputStateLB->setText("停止中");
 }

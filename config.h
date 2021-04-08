@@ -9,7 +9,7 @@ class config
 {
 public:
     config();
-
+    static bool startpush;
     static bool setupPush;//是否启动推送
     static bool setupMinimize;
 

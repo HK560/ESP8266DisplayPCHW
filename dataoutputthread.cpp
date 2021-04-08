@@ -31,12 +31,19 @@ void dataOutputThread::outputData()
         qDebug()<<"comOpenFailed";
         return;
     }
-    while(config::setupPush==true){//判断是否启动推送
+    while(emit outputState(config::startpush),config::startpush==true){//判断是否启动推送
+        qDebug( )<<"config::startpush"<<config::startpush;
+
 
         if(config::hardwareInfo==true){//输出硬件信息
+            config::hardwareInfoReload();
             QByteArray value;
-            while(config::hardwareInfoDPtime--){
-                for (int k = 0; config::hardwareInfo==true&&allValue[k].end == false; ) {
+            int DPtime=config::hardwareInfoDPtime;
+            while(DPtime-->0){
+                qDebug( )<<"config::hardwareInfoDPtime："<<config::hardwareInfoDPtime;
+                for (int k = 0; config::hardwareInfo==true&&k<10; ) {
+
+                     qDebug()<< allValue[k].name << allValue[k].state<<endl;
                     if (allValue[k].state == true) {
                         for (int i=0;i<aida64ReaderForESP8266::cycletime ;i++ ) {
                             qDebug()<< i << " times"<<endl;
@@ -59,11 +66,16 @@ void dataOutputThread::outputData()
                         }
                     }
                                         k++;
-                                        if(allValue[k].end != false){
-                                            k=0;}
+//                                        if(allValue[k].end != false){
+//                                            k=0;}
                 }
             }
         }
+
+
+
+        ///这里添加其他功能
+
 
 
 

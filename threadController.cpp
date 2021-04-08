@@ -13,6 +13,7 @@ ThreadController::ThreadController(QObject *parent):QObject(parent)
     connect(&m_dataQThread, &QThread::finished, m_worker, &QObject::deleteLater);
     connect(m_worker, &dataOutputThread::resultReady, this, &ThreadController::on_revResult);
     connect(m_worker, &dataOutputThread::showMessage, this, &ThreadController::on_msgShow);
+    connect(m_worker, &dataOutputThread::outputState, this, &ThreadController::on_outputState);
     //connect(this,&ThreadController::singal_closeThread,this);
     m_dataQThread.start();
 }
@@ -50,4 +51,9 @@ void ThreadController::on_revResult(const QString &str)
 void ThreadController::on_msgShow(const QString &str)
 {
     emit singal_showMeg(str);
+}
+
+void ThreadController::on_outputState(bool run)
+{
+    emit singal_outputState(run);
 }

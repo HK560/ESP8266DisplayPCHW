@@ -48,6 +48,8 @@ private slots:
 
     void singalMsg(QString str);
 
+    void outputState(bool run);
+
     void on_autoBox_clicked(bool checked);
 
     void on_autoBox_stateChanged(int arg1);
@@ -70,6 +72,10 @@ private slots:
     void on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason);
 
     void on_minniChk_stateChanged(int arg1);
+
+    void on_hwChkBox_stateChanged(int arg1);
+
+    void on_stopBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

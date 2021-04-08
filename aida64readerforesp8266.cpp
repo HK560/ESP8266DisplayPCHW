@@ -4,10 +4,24 @@
 using namespace std;
 
 
-int aida64ReaderForESP8266::cycletime=3;
+int aida64ReaderForESP8266::cycletime=2;
 bool aida64ReaderForESP8266::ifStopSignal=true;
 QString aida64ReaderForESP8266::portName="null";
 
+
+aida64ValueList allValue[10] ={
+        {(_T("Value.VCPU")),"CPU_Volt",false},
+        {(_T("Value.VGPU1")),"GPU_Volt",true},
+        {(_T("Value.SCPUUTI")),"CPU_UTI",true},
+        {(_T("Value.TCPU")),"CPU_TMP",true},
+        {(_T("Value.PCPUPKG")),"CPU_PKG",true},
+        {(_T("Value.SCPUCLK")),"CPU_CLK",true},
+        {(_T("Value.SGPU1UTI")),"GPU_UTI",true},
+        {(_T("Value.SGPU1MCUTI")),"GPUMC_UTI",true},
+        {(_T("Value.TGPU1DIO")),"GPU_TMP",true},
+        {(_T("Value.SMEMUTI")),"MEM_UTI",true},
+
+    };
 
 void aida64ReaderForESP8266::wcharTochar(const wchar_t* wchar, char* chr, int length)
 {
@@ -89,7 +103,7 @@ void aida64ReaderForESP8266::test1()
         cout << endl;
         Sleep(1000);
     }
-    delete []allValue;
+    //delete []allValue;
     //bool status = QueryRegKey(strSubKey, strValueName, strValue, length);
     //printf("status is %d\n", status);
     //printf("result is %s\n", strValue);

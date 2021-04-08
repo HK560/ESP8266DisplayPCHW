@@ -26,6 +26,8 @@ public:
     static int cycletime;//显示几秒
     static bool ifStopSignal;
     static QString portName;
+
+
 };
 
 struct aida64ValueList {
@@ -40,18 +42,8 @@ struct aida64ValueList {
     };
 };
 
-static aida64ValueList  *allValue =new aida64ValueList[10] {
-        {(_T("Value.VCPU")),"CPU_Volt",true},
-        {(_T("Value.VGPU1")),"GPU_Volt",true},
-        {(_T("Value.SCPUUTI")),"CPU_UTI",true},
-        {(_T("Value.TCPU")),"CPU_TMP",true,},
-        {(_T("Value.PCPUPKG")),"CPU_PKG",true,},
-        {(_T("Value.SCPUCLK")),"CPU_CLK",true,},
-        {(_T("Value.SGPU1UTI")),"GPU_UTI",true,},
-        {(_T("Value.SGPU1MCUTI")),"GPUMC_UTI",true,},
-        {(_T("Value.TGPU1DIO")),"GPU_TMP",true,},
-        {(_T("Value.SMEMUTI")),"MEM_UTI",true,},
-    };
+
+extern aida64ValueList  allValue[10];
 
 bool Pushdata(LPCWSTR strValueName,QByteArray &value );
 

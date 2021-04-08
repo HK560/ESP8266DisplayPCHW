@@ -1,7 +1,7 @@
 #include "config.h"
 
 
-
+bool config::startpush=false;
 bool config::setupPush=false;
 bool config::setupMinimize=false;
 bool config::hardwareInfo=false;
@@ -34,7 +34,11 @@ config::config()
 }
 
 void config::hardwareInfoReload(){
+
+    qDebug()<<"config::hardwareInfoReload()";
+    // qDebug()<<"值："<<hardwareInfo_CPUvolt;
     allValue[0].state=hardwareInfo_CPUvolt;
+    //qDebug()<<"实际值："<<allValue[0].state;
     allValue[1].state=hardwareInfo_GPUvolt;
     allValue[2].state=hardwareInfo_CPUuti;
     allValue[3].state=hardwareInfo_CPUtmp;
