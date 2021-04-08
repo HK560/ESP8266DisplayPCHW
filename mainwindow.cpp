@@ -480,7 +480,7 @@ void MainWindow::saveHardwareInfoSetting()
 
 void MainWindow::on_aboutBtn_clicked()
 {
-    QDesktopServices::openUrl(QUrl("https://blog.hk560.top/Aida64ForEsp8266/"));
+    QDesktopServices::openUrl(QUrl("https://esp8266pcreader.hk560.workers.dev/"));
 }
 
 void MainWindow::on_hideBtn_clicked()
