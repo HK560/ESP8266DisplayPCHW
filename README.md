@@ -17,7 +17,7 @@ PC需要安装运行AIDA64和本项目的上位机程序，ESP8266需要烧录�
 - 播放动画功能待开发...
 
 
-
+[Read more](https://blog.hk560.top/Aida64ForEsp8266/ "Read more")
 ------------
 
 **其他信息待完善**
