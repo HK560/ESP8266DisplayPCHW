@@ -1,3 +1,5 @@
+//兼容上位机版本ver0.1
+//下位机程序版本ver0.2
 #include <U8g2lib.h>
 
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
@@ -16,10 +18,10 @@ void refresh(){//显示函数
     u8g2.clearBuffer();                         // 清空显存
     //u8g2.setFont(u8g2_font_unifont_t_chinese2);
     u8g2.setFont(u8g2_font_freedoomr10_mu);
-    u8g2.drawStr((128-(u8g2.getUTF8Width("HK560's PC")))/2, 0, "HK560's PC");
-    u8g2.drawStr((128-(u8g2.getUTF8Width(ouputName)))/2, 12, ouputName);
+    u8g2.drawStr((128-(u8g2.getUTF8Width("HK560's PC")))/2, 12, "HK560's PC");
+    u8g2.drawStr((128-(u8g2.getUTF8Width(ouputName)))/2, 24, ouputName);
     u8g2.setFont(u8g2_font_freedoomr25_tn);
-    u8g2.drawStr((128-(u8g2.getUTF8Width(ouputData)))/2, 24, ouputData);
+    u8g2.drawStr((128-(u8g2.getUTF8Width(ouputData)))/2, 60, ouputData);
     u8g2.sendBuffer();
 }
 
@@ -105,8 +107,8 @@ void loop() {
 
 
 void boot(){
-  String title="AMD YES!";//限制长度为15
-  String subtitle="waiting for data";//限制长度为15
+  String title="AMD YES";//限制长度为15
+  String subtitle="WAITING";//限制长度为15
   char titleChar[15],subtitleChar[15];
   title.toCharArray(titleChar,15);
   subtitle.toCharArray(subtitleChar,15);
@@ -118,7 +120,7 @@ void boot(){
   //u8g2.print("Ryzen");
   //u8g2.setCursor(0, 35);
   //u8g2.print("connecting PC...");
-  u8g2.drawStr((128-(u8g2.getUTF8Width(subtitleChar)))/2, 35, subtitleChar);
+  u8g2.drawStr((128-(u8g2.getUTF8Width(subtitleChar)))/2, 40, subtitleChar);
   u8g2.sendBuffer();
   //delay(1500); 
   //u8g2.clear(); 

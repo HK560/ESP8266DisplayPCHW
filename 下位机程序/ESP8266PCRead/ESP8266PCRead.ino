@@ -1,3 +1,6 @@
+//兼容上位机程序版本ver0.1
+//下位机程序版本ver0.1
+
 #include <U8g2lib.h>
 
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
