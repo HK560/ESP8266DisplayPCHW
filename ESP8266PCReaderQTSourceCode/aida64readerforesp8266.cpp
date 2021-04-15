@@ -4,7 +4,7 @@
 using namespace std;
 
 
-int aida64ReaderForESP8266::cycletime=2;
+int aida64ReaderForESP8266::cycletime=3;
 bool aida64ReaderForESP8266::ifStopSignal=true;
 QString aida64ReaderForESP8266::portName="null";
 
