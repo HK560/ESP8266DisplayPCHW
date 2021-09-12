@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    //设置托盘图标
     mySysTrayIcon=new QSystemTrayIcon(this);
     QIcon icon=QIcon(":/icon/avatar_hk560.jpg");
     mySysTrayIcon->setIcon(icon);
@@ -18,15 +19,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
     ui->comChoBox->clear();
+
+    //找到可用串口
     foreach(const QSerialPortInfo &info,QSerialPortInfo::availablePorts())
     {
         ui->comChoBox->addItem(info.portName());
     }
 
+    //读取配置文件
     QFileInfo info("./config.ini");
     //bool fileExit=info.exists();
     QSettings *configFile=new QSettings("./config.ini",QSettings::IniFormat);
-    if(info.exists()==false){
+    if(info.exists()==false){//如果不存在就新建
         qDebug()<<"建立设定config";
         configFile->setValue("COM","COM1");
         configFile->setValue("AUTOSETUP",false);
@@ -44,6 +48,9 @@ MainWindow::MainWindow(QWidget *parent)
         configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUuti",false);
         configFile->setValue("HARDWAREINFO/HARDWAREINFO_MENuti",false);
 
+        configFile->setValue("OutputSetting/IMAGEINFO",false);
+        configFile->setValue("IMAGEINFO/LOOP_TIME",1);
+        //在这里需要添加新项目
 
     }else
     {
@@ -150,7 +157,22 @@ MainWindow::MainWindow(QWidget *parent)
         else
             ui->MENutiChk->setCheckState(Qt::Unchecked);
 
+        //IMAGE INFO
 
+        TmpState=config::imageInfo=configFile->value("OutputSetting/IMAGEINFO").toBool();
+        if(TmpState==true)
+            ui->imgShowChk->setCheckState(Qt::Checked);
+        else
+            ui->imgShowChk->setCheckState(Qt::Unchecked);
+
+//        TmpState=config::imageInfo=configFile->value("IMAGEINFO/LOOP_TIME").toBool();
+//        if(TmpState==true)
+//            ui->imgCycChk->setCheckState(Qt::Checked);
+//        else
+//            ui->imgCycChk->setCheckState(Qt::Unchecked);
+
+        config::imageInfoLoopTime=configFile->value("IMAGEINFO/LOOP_TIME").toInt();
+        ui->imgLoopTime->setValue(configFile->value("IMAGEINFO/LOOP_TIME").toInt());
 
     }
 
@@ -169,6 +191,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->GPUtmpChk,&QCheckBox::stateChanged,this,&MainWindow::saveHardwareInfoSetting);
     connect(ui->GPUMCutiChk,&QCheckBox::stateChanged,this,&MainWindow::saveHardwareInfoSetting);
     connect(ui->MENutiChk,&QCheckBox::stateChanged,this,&MainWindow::saveHardwareInfoSetting);
+
+    connect(ui->imgShowChk,&QCheckBox::stateChanged,this,&MainWindow::saveImageInfoSetting);
+    //connect(ui->imgLoopTime,&QSpinBox::valueChanged,this,&MainWindow::saveImageInfoSetting);
+
     connect(mySysTrayIcon,&QSystemTrayIcon::activated,this,&MainWindow::on_activatedSysTrayIcon);
 
 
@@ -189,7 +215,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
+//打开串口
 void MainWindow::on_openComBtn_clicked()
 {
     //openComPort();
@@ -199,6 +225,7 @@ void MainWindow::on_openComBtn_clicked()
 
 }
 
+//启动推送信息
 void MainWindow::on_autoSetMsgBtn_clicked()
 {
     ui->outputStateLB->setText("启动中");
@@ -220,6 +247,7 @@ void MainWindow::on_autoSetMsgBtn_clicked()
 
 }
 
+//关闭串口
 void MainWindow::on_closeBtn_clicked()
 {
     //closeComPort();
@@ -244,6 +272,7 @@ void MainWindow::closeComPort()
     //THC.startCloseCom();
 }
 
+//是否显示硬件信息
 void MainWindow::on_hwChkBox_clicked(bool checked)
 {
     //    if(checked==true)
@@ -261,6 +290,7 @@ void MainWindow::on_hwChkBox_clicked(bool checked)
 
 }
 
+//打印可用串口
 void MainWindow::on_serComBtn_clicked()
 {
     ui->comChoBox->clear();
@@ -269,12 +299,13 @@ void MainWindow::on_serComBtn_clicked()
         ui->comChoBox->addItem(info.portName());
     }
 }
-
+//返回信息
 void MainWindow::singalMsg(QString str)
 {
     QMessageBox::about(NULL,"信息",str);
 }
 
+//显示状态
 void MainWindow::outputState(bool run)
 {
     if(run==true){
@@ -294,7 +325,7 @@ void MainWindow::on_autoBox_stateChanged(int arg1)
 
 }
 
-
+//保存设置按钮
 void MainWindow::on_saveBtn_clicked()
 {
     QFileInfo info("./config.ini");
@@ -403,10 +434,35 @@ void MainWindow::on_saveBtn_clicked()
         configFile->setValue("AUTOMinimize",false);
     }
 
+
+     //IMAGE
+
+    if(ui->imgShowChk->checkState()==Qt::Checked){
+        config::imageInfo=true;
+        configFile->setValue("OutputSetting/IMAGEINFO",true);
+    }else{
+        config::imageInfo=false;
+        configFile->setValue("OutputSetting/IMAGEINFO",false);
+    }
+
+//    if(ui->imgCycChk->checkState()==Qt::Checked){
+//        config::imageInfoLoop=true;
+//        configFile->setValue("IMAGEINFO/LOOP_TIME",true);
+//    }else{
+//        config::imageInfoLoop=false;
+//        configFile->setValue("IMAGEINFO/LOOP_TIME",false);
+//    }
+
+    configFile->setValue("IMAGEINFO/LOOP_TIME",ui->imgLoopTime->value());
+
+
+
+
     QMessageBox::about(NULL,"信息","已保存设置到程序根目录下的配置文件");
     delete  configFile;
 }
 
+//更改了硬件信息循环时间
 void MainWindow::on_hwCycleTime_valueChanged(int arg1)
 {
     qDebug("hwCycleTimechange");
@@ -418,6 +474,7 @@ void MainWindow::on_MainWindow_destroyed()
 
 }
 
+//保存硬件信息输出设置
 void MainWindow::saveHardwareInfoSetting()
 {
     //QSettings *configFile=new QSettings("./config.ini",QSettings::IniFormat)
@@ -472,17 +529,37 @@ void MainWindow::saveHardwareInfoSetting()
     }else
         config::hardwareInfo_MENuti=false;
 
+
+
     config::hardwareInfoReload();
+    //需要添加加载图片参数的函数
 
     //delete [] configFile;
 }
 
+void MainWindow::saveImageInfoSetting()
+{
+    //image
+    if(ui->imgShowChk->checkState()==Qt::Checked){
+        config::imageInfo=true;
+    }else
+        config::imageInfo=false;
 
+//    if(ui->imgCycChk->checkState()==Qt::Checked){
+//        config::imageInfoLoop=true;
+//    }else
+//        config::imageInfoLoop=false;
+    config::imageInfoLoopTime=ui->imgLoopTime->value();
+    //需要添加加载图片参数的函数
+}
+
+//关于信息按钮
 void MainWindow::on_aboutBtn_clicked()
 {
     QDesktopServices::openUrl(QUrl("https://esp8266pcreader.hk560.workers.dev/"));
 }
 
+//最小化
 void MainWindow::on_hideBtn_clicked()
 {
     this->hide();
@@ -494,7 +571,7 @@ void MainWindow::on_hideBtn_clicked()
 
 
 }
-
+//点击托盘图标恢复
 void MainWindow::on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason)
 {
     if(reason==QSystemTrayIcon::Trigger){
@@ -513,7 +590,7 @@ void MainWindow::on_hwChkBox_stateChanged(int arg1)
 {
 
 }
-
+//停止输出信息
 void MainWindow::on_stopBtn_clicked()
 {
     if(config::startpush==false){
@@ -525,4 +602,110 @@ void MainWindow::on_stopBtn_clicked()
 
 
 
+}
+
+void MainWindow::on_picNameBtn_clicked()
+{
+    QStringList files = QFileDialog::getOpenFileNames(
+                this,
+                "选择一个或者多个图片",
+                QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
+    if(files.isEmpty()){
+        QMessageBox::warning(this,"提示","没有选择图片");
+        return;
+    }
+    QImage imageToUse;
+    for(int i=0;i<files.size();i++){
+        qDebug()<<files.at(i).toUtf8();
+        if(imageToUse.load(files.at(i))==false)
+            QMessageBox::warning(this,"错误","读取图片失败，请检查选择的是否是图片");
+        if(imageToUse.height()>64||imageToUse.width()>128){
+            QMessageBox::warning(this,"错误","分辨率超过128x64");
+            return;
+        }
+    }
+
+    qDebug()<<"readFilesList";
+    //    if(imgInfoList!=NULL)
+    //        delete [] imgInfoList;
+
+    if(imgInfoList!=nullptr){
+        delete [] imgInfoList;
+        imgInfoList=nullptr;
+    }
+    imgInfoList=new imageInfo[files.size()];
+    imgListSize=files.size();
+
+    for(int i=0;i<files.size();i++){
+        imgInfoList[i].fileName=files.at(i);
+        imgInfoList[i].XBM_DATA.resize(1024);
+        CBinarization* binImg=new CBinarization(files.at(i));
+
+        binImg->alterImage=false;
+
+        QImage* grayImage = binImg->grayScaleImg();//获取灰度图
+        int threshold=binImg->Otsu(grayImage);//计算阈值
+        binImg->threshold=threshold;//阈值
+        int bytePerLine = grayImage->bytesPerLine();
+
+        imgInfoList[i].binData=new unsigned char[bytePerLine * grayImage->height()];
+        //imgInfoList[i].XBM_DATA=new QByteArray[1024];//给bindata new新的空间
+        //uchar* imgData=nullptr;
+        //imgData= new unsigned char[bytePerLine * grayImage->height()];
+        QImage* binaryImg = binImg->process(grayImage, imgInfoList[i].binData,imgInfoList[i].XBM_DATA);//二值化处理,图片存储到binaryImg,位图数组在binData
+
+        QImage f1=binaryImg->scaled(ui->imageShow->size(),Qt::KeepAspectRatio);//显示出图片
+        ui->label->setPixmap(QPixmap::fromImage(f1));
+        qDebug()<<"calXBM";
+        //        int sum=0;
+        //        for(int k=0;k<grayImage->height();++k){
+        //            for(int j=0;j<grayImage->width();++j){
+        //                //qDebug()<<uchar(imgInfoList[i].binData[ k * bytePerLine + j])<<" ";
+        //                sum++;
+        //            }
+        //        }
+        //        qDebug()<<"图片："<<i;
+        //        for(int gg=0;gg<1024;gg++){
+        //            qDebug()<<hex<<uchar(imgInfoList[i].XBM_DATA[gg]);
+        //            //ui->textEdit->append()
+        //        }
+        this->repaint();//刷新组件
+        //        qDebug()<<sum;
+
+
+
+
+
+        //ui->textEdit->append()
+        //}
+        //        if(!serial->waitForBytesWritten())   //这一句很关键，决定是否能发送成功
+        //        {
+        //            qDebug()<<"serial write error";
+        //        }
+        //        QByteArray aaa;
+        //        aaa[0]=0xAA;
+        //        aaa[1]=0x22;
+        //        serial->write(aaa);
+        //serial->waitForBytesWritten();
+        //serial->close();
+        delete [] binImg;
+
+        //delete  tt;
+       // delete  binaryImg;
+        //delete  grayImage;
+        qDebug()<<"pic:"<<i<<"END";
+    }
+
+
+
+    //grayImage.save("D:/grayimg.png");
+    //QPixmap image(files.first());
+    //QImage f1=grayImage;
+    //QPixmap image;
+    //image.fromImage(grayImage);
+    //QPixmap outputImage=image.scaled(ui->label->size(),Qt::KeepAspectRatio);
+
+
+    //qDebug()<<uchar(imgData[0]);
+    qDebug()<<"end";
 }

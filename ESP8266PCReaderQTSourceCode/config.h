@@ -15,7 +15,6 @@ public:
 
     static bool hardwareInfo;//是否推送硬件信息
     static int hardwareInfoDPtime;//推送硬件信息循环次数
-
     static bool hardwareInfo_CPUuti;
     static bool hardwareInfo_CPUvolt;
     static bool hardwareInfo_GPUvolt;
@@ -27,9 +26,12 @@ public:
     static bool hardwareInfo_GPUuti;
     static bool hardwareInfo_MENuti;
 
+    static bool imageInfo;
+    static bool imageInfoLoopTime;
 
 
     static void hardwareInfoReload();
+    static void imageInfoReload();
 
     void setupconfig();
     void readconfig(QSettings config);

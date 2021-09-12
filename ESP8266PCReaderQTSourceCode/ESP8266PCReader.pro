@@ -20,16 +20,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     aida64readerforesp8266.cpp \
+    binarization.cpp \
     config.cpp \
     dataoutputthread.cpp \
+    imageinfo.cpp \
     main.cpp \
     mainwindow.cpp \
     threadController.cpp
 
 HEADERS += \
     aida64readerforesp8266.h \
+    binarization.h \
     config.h \
     dataoutputthread.h \
+    imageinfo.h \
     mainwindow.h \
     threadController.h
 

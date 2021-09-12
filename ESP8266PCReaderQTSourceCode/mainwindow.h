@@ -14,7 +14,10 @@
 #include<QWidget>
 #include<QtGui>
 #include <QSystemTrayIcon>
+#include"binarization.h"
+#include "imageinfo.h"
 
+#include <QFileDialog>
 
 //#include "ThreadDoWork.h"
 
@@ -64,6 +67,8 @@ private slots:
 
     void saveHardwareInfoSetting();
 
+    void saveImageInfoSetting();
+
 
 
     void on_aboutBtn_clicked();
@@ -76,6 +81,8 @@ private slots:
     void on_hwChkBox_stateChanged(int arg1);
 
     void on_stopBtn_clicked();
+
+    void on_picNameBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -9,12 +9,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>390</width>
-    <height>527</height>
+    <width>394</width>
+    <height>627</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+   <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -28,7 +28,7 @@
   <property name="maximumSize">
    <size>
     <width>394</width>
-    <height>527</height>
+    <height>900</height>
    </size>
   </property>
   <property name="focusPolicy">
@@ -45,9 +45,24 @@
    <enum>Qt::LeftToRight</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout_7">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_5">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
@@ -159,6 +174,12 @@
         </item>
         <item>
          <widget class="QGroupBox" name="groupBox_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="title">
            <string>显示设置</string>
           </property>
@@ -336,13 +357,112 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>其他功能待开发...</string>
+            <widget class="QGroupBox" name="groupBox_4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>71</height>
+              </size>
              </property>
+             <property name="title">
+              <string>二值化动画/图片</string>
+             </property>
+             <widget class="QToolButton" name="picNameBtn">
+              <property name="geometry">
+               <rect>
+                <x>220</x>
+                <y>40</y>
+                <width>71</width>
+                <height>20</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>选择图片</string>
+              </property>
+             </widget>
+             <widget class="QLabel" name="imgNum">
+              <property name="geometry">
+               <rect>
+                <x>230</x>
+                <y>70</y>
+                <width>54</width>
+                <height>12</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>图片数:</string>
+              </property>
+             </widget>
+             <widget class="QWidget" name="">
+              <property name="geometry">
+               <rect>
+                <x>20</x>
+                <y>30</y>
+                <width>130</width>
+                <height>90</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_9">
+               <item>
+                <widget class="QCheckBox" name="imgShowChk">
+                 <property name="text">
+                  <string>显示动画/图片</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="imageShow">
+                 <property name="minimumSize">
+                  <size>
+                   <width>128</width>
+                   <height>64</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>图片预览</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="">
+              <property name="geometry">
+               <rect>
+                <x>200</x>
+                <y>100</y>
+                <width>96</width>
+                <height>25</height>
+               </rect>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_8">
+               <item>
+                <widget class="QLabel" name="imgLoop">
+                 <property name="text">
+                  <string>循环次数</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="imgLoopTime">
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                 <property name="maximum">
+                  <number>20</number>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
             </widget>
            </item>
           </layout>
@@ -475,20 +595,13 @@
      </layout>
     </item>
     <item>
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
      <widget class="QLabel" name="version">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="font">
        <font>
         <family>微软雅黑</family>
@@ -513,7 +626,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>390</width>
+     <width>394</width>
      <height>21</height>
     </rect>
    </property>

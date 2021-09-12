@@ -15,9 +15,9 @@ void dataOutputThread::openCom()
     if(serial->isOpen()==false){
         emit showMessage("串口未打开或未找到，请确认串口能否正常通信");
         emit outputState(false);
-         qDebug()<<"comOpenFailed";
+        qDebug()<<"comOpenFailed";
         return;}
-    serial->setBaudRate(QSerialPort::Baud115200);
+    serial->setBaudRate(1500000);
     serial->setDataBits(QSerialPort::Data8);
     serial->setParity(QSerialPort::NoParity);
     serial->setStopBits(QSerialPort::OneStop);
@@ -34,6 +34,13 @@ void dataOutputThread::outputData()
         qDebug()<<"comOpenFailed";
         return;
     }
+    if(config::imageInfo==true&&imgInfoList==nullptr){
+        emit showMessage("勾选了播放图片或动画,但并没有加载图片,请先加载图片文件再勾选播放");
+        emit outputState(false);
+        config::startpush=false;
+        return;
+    }
+
     while(emit outputState(config::startpush),config::startpush==true){//判断是否启动推送
         qDebug( )<<"config::startpush"<<config::startpush;
 
@@ -46,7 +53,7 @@ void dataOutputThread::outputData()
                 qDebug( )<<"config::hardwareInfoDPtime："<<config::hardwareInfoDPtime;
                 for (int k = 0; config::hardwareInfo==true&&k<10; ) {
 
-                     qDebug()<< allValue[k].name << allValue[k].state<<endl;
+                    qDebug()<< allValue[k].name << allValue[k].state<<endl;
                     if (allValue[k].state == true) {
                         for (int i=0;i<aida64ReaderForESP8266::cycletime ;i++ ) {
                             qDebug()<< i << " times"<<endl;
@@ -68,9 +75,9 @@ void dataOutputThread::outputData()
                             Sleep(1000);
                         }
                     }
-                                        k++;
-//                                        if(allValue[k].end != false){
-//                                            k=0;}
+                    k++;
+                    //                                        if(allValue[k].end != false){
+                    //                                            k=0;}
                 }
             }
         }
@@ -78,6 +85,49 @@ void dataOutputThread::outputData()
 
 
         ///这里添加其他功能
+        ///
+        if(config::imageInfo==true){
+            //加载设置的函数
+            for(int tm=0;tm<config::imageInfoLoopTime;tm++){
+                for(int i=0;i<imgListSize;i++){
+                    for(int e=0;e<1;e++){
+                        //            char *tt=new char(0xAA);
+                        //            serial->write(tt);
+                        //            tt=new char(0x55);
+                        //            serial->write(tt);
+                        QByteArray fir,ed;
+                        fir.resize(2);
+                        ed.resize(2);
+                        fir[0]=ed[0]=0xAA;
+                        fir[1]=0x55;
+                        ed[1]=0x22;
+                        serial->write(fir);
+                        if(!serial->waitForBytesWritten(-1))   //这一句很关键，决定是否能发送成功
+                        {
+                            qDebug()<<"serial write error";
+                        }
+
+
+                        serial->write(imgInfoList[i].XBM_DATA);
+                        serial->waitForBytesWritten(-1);
+                        //serial->write(ed);
+                        //serial->waitForBytesWritten(-1);
+                        qDebug()<<"outputData";
+                        //            tt=new char(0x22);
+                        //            serial->write(tt);
+                    }
+                    QTime t;
+                    t.start();
+                    while(t.elapsed()<50)
+                        QCoreApplication::processEvents();
+                }
+            }
+
+        }
+
+
+
+
 
 
 

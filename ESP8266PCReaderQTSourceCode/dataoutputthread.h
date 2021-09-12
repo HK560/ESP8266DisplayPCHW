@@ -7,7 +7,7 @@
 #include "aida64readerforesp8266.h"
 #include <QMessageBox>
 #include "config.h"
-
+#include "imageinfo.h"
 
 
 class dataOutputThread:public   QObject{

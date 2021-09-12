@@ -95,7 +95,7 @@ void setup() {
   // put your setup code here, to run once:
     u8g2.begin();
     u8g2.enableUTF8Print();
-    Serial.begin(115200);
+    Serial.begin(1500000);
     Serial.println("Ready");
 
 }

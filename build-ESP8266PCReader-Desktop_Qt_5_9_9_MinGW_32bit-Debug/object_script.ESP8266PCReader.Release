@@ -1,0 +1,14 @@
+INPUT(
+./release\aida64readerforesp8266.o
+./release\binarization.o
+./release\config.o
+./release\dataoutputthread.o
+./release\imageinfo.o
+./release\main.o
+./release\mainwindow.o
+./release\threadController.o
+./release\qrc_src.o
+./release\moc_dataoutputthread.o
+./release\moc_mainwindow.o
+./release\moc_threadController.o
+);
