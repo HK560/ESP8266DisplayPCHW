@@ -1,8 +1,8 @@
-//兼容上位机版本ver0.1
-//下位机程序版本ver0.3
-//版本说明：可以显示单位了，更换了字体好看点
+//兼容上位机版本???
+//下位机程序版本ver2.0
+//版本说明：?
 #include <U8g2lib.h>
-
+#include <Wire.h>
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 
 
@@ -14,6 +14,7 @@ String type="";
 byte revByte;
 char ouputName[15],ouputData[15],ouputUnit[4];
 int couttime=0;
+uint8_t frame[1024] = {};
 
 struct dataList{
   String dataName;
@@ -95,6 +96,7 @@ void setup() {
   // put your setup code here, to run once:
     u8g2.begin();
     u8g2.enableUTF8Print();
+    u8g2.clearBuffer();
     Serial.begin(1500000);
     Serial.println("Ready");
 
@@ -104,73 +106,96 @@ void loop() {
   // put your main code here, to run repeatedly:
     
     if(Serial.available()>0){
-        couttime=0;
-        //Serial.println("revmsg");
-        revByte=Serial.read(); //读！
-        //Serial.print("FRead，should be ！ ");
-        //Serial.println((char)revByte);
-        if (revByte=='!'){
-            //Serial.println("read");
-            while(revByte!='#'){
-                while (Serial.available() == 0)
-                    ;
-                revByte=Serial.read();
-                if(revByte!='#'){
-                    type+=(char)revByte;
+      u8g2.clearBuffer();
+        revByte = Serial.read();
+        if (revByte == 0xAA){
+            if (Serial.available() > 0){
+                revByte = Serial.read();
+                if (revByte == 0x55){
+                    int countnum = 0;
+                    for (int i = 0; i < 1024; i++){
+                        while (Serial.available() == 0)
+                            ;
+                        frame[i] = Serial.read();
+                        countnum++;
+                    }
+                    u8g2.firstPage();
+                    do{
+                        u8g2.drawXBM(0, 0, 128, 64, frame);
+                    } while (u8g2.nextPage());
                 }
+                else if (revByte == 0x22)
+                    return;
             }
-            //Serial.println("readName");
-            while(revByte!='='){
-                while (Serial.available() == 0)
-                    ;
-                revByte=Serial.read();
-                if(revByte!='='){
-                    dataName+=(char)revByte;
-                }
-            }
-            //Serial.println("readvalue");
-            while(revByte!='?'){
-                while (Serial.available() == 0)
-                    ;
-                revByte=Serial.read();
-                if(revByte!='?'){
-                    dataValue+=(char)revByte;
-                }
-            }
-            
-            Serial.println(type); //如果需要显示其他的信息，去上位机输出里查名称
-            Serial.println(dataName);
-            Serial.println(dataValue);
-            //strcpy(ouputName,dataName);
-            //strcpy(ouputData,dataValue);
-            //ouputName=const_cast<char*>(dataName.c_str());
-            //ouputData=const_cast<char*>(dataValue.c_str());
-
-            setTrueName(dataName,trueName,unit);
-            trueName.toCharArray(ouputName,15);//数据名字传到outputname
-            dataValue.toCharArray(ouputData,15);//数据值传到outputdata
-            unit.toCharArray(ouputUnit,4);
-            
-            dataName="";//清除
-            trueName="";
-            dataValue="";
-            type="";
-            
-            refresh();//执行刷新显示函数
-        }
-        
-        while(Serial.read()>=0){}
-
-    }else{ 
-
-      //如果5s内没有收到数据则执行boot()函数
-        if(couttime==5){
-            couttime+=1;
-            delay(1000);
         }else{
-            boot();
+            if (revByte=='!'){
+                //Serial.println("read");
+                while(revByte!='#'){
+                    while (Serial.available() == 0)
+                    ;
+                    revByte=Serial.read();
+                    if(revByte!='#'){
+                    type+=(char)revByte;
+                    }
+                }
+                 //Serial.println("readName");
+                while(revByte!='='){
+                    while (Serial.available() == 0)
+                    ;
+                    revByte=Serial.read();
+                    if(revByte!='='){
+                    dataName+=(char)revByte;
+                    }
+                }
+                 //Serial.println("readvalue");
+                while(revByte!='?'){
+                    while (Serial.available() == 0)
+                    ;
+                    revByte=Serial.read();
+                    if(revByte!='?'){
+                    dataValue+=(char)revByte;
+                    }
+                }
+            
+                Serial.println(type); //如果需要显示其他的信息，去上位机输出里查名称
+                Serial.println(dataName);
+                Serial.println(dataValue);
+                //strcpy(ouputName,dataName);
+                //strcpy(ouputData,dataValue);
+                //ouputName=const_cast<char*>(dataName.c_str());
+                //ouputData=const_cast<char*>(dataValue.c_str());
+
+                setTrueName(dataName,trueName,unit);
+                trueName.toCharArray(ouputName,15);//数据名字传到outputname
+                dataValue.toCharArray(ouputData,15);//数据值传到outputdata
+                unit.toCharArray(ouputUnit,4);
+            
+                dataName="";//清除
+                trueName="";
+                dataValue="";
+                type="";
+            
+                refresh();//执行刷新显示函数
+            }
             couttime=0;
+            //Serial.println("revmsg");
+            revByte=Serial.read(); //读！
+            //Serial.print("FRead，should be ！ ");
+            //Serial.println((char)revByte);
+            while(Serial.read()>=0){}
         }
+
     }
+    // else{ 
+
+    //   //如果5s内没有收到数据则执行boot()函数
+    //     if(couttime!=5){
+    //         couttime+=1;
+    //         delay(1000);
+    //     }else{
+    //         boot();
+    //         couttime=0;
+    //     }
     
+    // }
 }
