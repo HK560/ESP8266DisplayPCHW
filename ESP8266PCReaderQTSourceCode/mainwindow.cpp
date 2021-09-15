@@ -205,7 +205,7 @@ MainWindow::MainWindow(QWidget *parent)
         THC.startOutput();
     }
 
-    this->setFixedSize(390,500);
+    //this->setFixedSize(390,500);
 
 }
 
@@ -606,12 +606,23 @@ void MainWindow::on_stopBtn_clicked()
 
 void MainWindow::on_picNameBtn_clicked()
 {
+    if(config::imageInfo==true){
+         QMessageBox::warning(this,"警告","请先取消勾选“显示动画/图片”");
+         return;
+    }
+    config::imageReady=false;
+    if(imgInfoList!=nullptr){
+        delete [] imgInfoList;
+        imgInfoList=nullptr;
+    }
+    ui->imgNum->setText("未选择图片");
+    ui->imageShow->setText("（无图片信息）");
     QStringList files = QFileDialog::getOpenFileNames(
                 this,
                 "选择一个或者多个图片",
                 QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
     if(files.isEmpty()){
-        QMessageBox::warning(this,"提示","没有选择图片");
+        QMessageBox::warning(this,"提示","选择图片失败");
         return;
     }
     QImage imageToUse;
@@ -629,13 +640,10 @@ void MainWindow::on_picNameBtn_clicked()
     //    if(imgInfoList!=NULL)
     //        delete [] imgInfoList;
 
-    if(imgInfoList!=nullptr){
-        delete [] imgInfoList;
-        imgInfoList=nullptr;
-    }
+
     imgInfoList=new imageInfo[files.size()];
     imgListSize=files.size();
-
+    ui->imgNum->setText(QString("图片数:%1").arg(files.size()));
     for(int i=0;i<files.size();i++){
         imgInfoList[i].fileName=files.at(i);
         imgInfoList[i].XBM_DATA.resize(1024);
@@ -655,7 +663,7 @@ void MainWindow::on_picNameBtn_clicked()
         QImage* binaryImg = binImg->process(grayImage, imgInfoList[i].binData,imgInfoList[i].XBM_DATA);//二值化处理,图片存储到binaryImg,位图数组在binData
 
         QImage f1=binaryImg->scaled(ui->imageShow->size(),Qt::KeepAspectRatio);//显示出图片
-        ui->label->setPixmap(QPixmap::fromImage(f1));
+        ui->imageShow->setPixmap(QPixmap::fromImage(f1));
         qDebug()<<"calXBM";
         //        int sum=0;
         //        for(int k=0;k<grayImage->height();++k){
@@ -694,6 +702,7 @@ void MainWindow::on_picNameBtn_clicked()
        // delete  binaryImg;
         //delete  grayImage;
         qDebug()<<"pic:"<<i<<"END";
+        config::imageReady=true;
     }
 
 
@@ -708,4 +717,14 @@ void MainWindow::on_picNameBtn_clicked()
 
     //qDebug()<<uchar(imgData[0]);
     qDebug()<<"end";
+}
+
+void MainWindow::on_imgShowChk_stateChanged(int arg1)
+{
+    if(arg1==Qt::Checked&&config::imageReady==false){
+        ui->imgShowChk->setCheckState(Qt::Unchecked);
+        QMessageBox::warning(this,"错误","未加载图片，请先选择图片文件后再勾选");
+        MainWindow::saveImageInfoSetting();
+        return;
+    }
 }

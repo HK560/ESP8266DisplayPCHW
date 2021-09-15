@@ -18,7 +18,7 @@ bool config::hardwareInfo_GPUtmp=false;
 bool config::hardwareInfo_GPUuti=false;
 bool config::hardwareInfo_MENuti=false;
 
-
+bool config::imageReady=false;
 bool config::imageInfo=false;
 bool config::imageInfoLoopTime=1;
 

@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
@@ -62,11 +63,12 @@ public:
     QSpacerItem *horizontalSpacer_3;
     QLabel *label_2;
     QSpinBox *hwCycleTime;
+    QFrame *line_2;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
+    QCheckBox *CPUutiChk;
     QCheckBox *CPUvoltChk;
     QCheckBox *MENutiChk;
-    QCheckBox *CPUutiChk;
     QHBoxLayout *horizontalLayout_4;
     QCheckBox *CPUpkgChk;
     QCheckBox *CPUclkChk;
@@ -77,23 +79,29 @@ public:
     QCheckBox *GPUtmpChk;
     QCheckBox *GPUMCutiChk;
     QGroupBox *groupBox_4;
-    QToolButton *picNameBtn;
-    QLabel *imgNum;
-    QWidget *widget;
-    QVBoxLayout *verticalLayout_9;
+    QVBoxLayout *verticalLayout_13;
+    QHBoxLayout *horizontalLayout_9;
+    QVBoxLayout *verticalLayout_12;
+    QVBoxLayout *verticalLayout_11;
     QCheckBox *imgShowChk;
-    QLabel *imageShow;
-    QWidget *widget1;
+    QToolButton *picNameBtn;
     QHBoxLayout *horizontalLayout_8;
     QLabel *imgLoop;
     QSpinBox *imgLoopTime;
+    QSpacerItem *horizontalSpacer_2;
+    QVBoxLayout *verticalLayout_9;
+    QFrame *line_5;
+    QLabel *imageShow;
+    QFrame *line_6;
+    QLabel *imgNum;
+    QSpacerItem *verticalSpacer;
     QGridLayout *gridLayout;
-    QSpacerItem *horizontalSpacer_4;
     QLabel *outputStateLB;
-    QCheckBox *autoBox;
     QPushButton *autoSetMsgBtn;
-    QLabel *label_4;
+    QCheckBox *autoBox;
     QPushButton *stopBtn;
+    QLabel *label_4;
+    QSpacerItem *horizontalSpacer_4;
     QHBoxLayout *horizontalLayout_5;
     QSpacerItem *horizontalSpacer_6;
     QCheckBox *minniChk;
@@ -107,14 +115,13 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setEnabled(true);
-        MainWindow->resize(394, 627);
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+        MainWindow->resize(390, 665);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Maximum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
-        MainWindow->setMinimumSize(QSize(390, 512));
-        MainWindow->setMaximumSize(QSize(394, 900));
+        MainWindow->setMinimumSize(QSize(390, 665));
         MainWindow->setFocusPolicy(Qt::TabFocus);
         MainWindow->setWindowTitle(QStringLiteral("ESP8266_PCReader"));
         QIcon icon;
@@ -135,6 +142,7 @@ public:
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         verticalLayout_5->setContentsMargins(0, 0, -1, -1);
         verticalLayout_4 = new QVBoxLayout();
+        verticalLayout_4->setSpacing(13);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         groupBox_3 = new QGroupBox(centralwidget);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
@@ -180,6 +188,7 @@ public:
         horizontalLayout_2->addItem(horizontalSpacer);
 
         verticalLayout_6 = new QVBoxLayout();
+        verticalLayout_6->setSpacing(6);
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
         saveBtn = new QPushButton(groupBox_3);
         saveBtn->setObjectName(QStringLiteral("saveBtn"));
@@ -210,7 +219,7 @@ public:
 
         groupBox_2 = new QGroupBox(centralwidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
@@ -219,6 +228,11 @@ public:
         verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
         groupBox = new QGroupBox(groupBox_2);
         groupBox->setObjectName(QStringLiteral("groupBox"));
+        sizePolicy2.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
+        groupBox->setSizePolicy(sizePolicy2);
+        groupBox->setMinimumSize(QSize(0, 180));
+        groupBox->setSizeIncrement(QSize(0, 0));
+        groupBox->setBaseSize(QSize(0, 0));
         verticalLayout_3 = new QVBoxLayout(groupBox);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         horizontalLayout_7 = new QHBoxLayout();
@@ -249,10 +263,23 @@ public:
 
         verticalLayout_3->addLayout(horizontalLayout_7);
 
+        line_2 = new QFrame(groupBox);
+        line_2->setObjectName(QStringLiteral("line_2"));
+        line_2->setFrameShape(QFrame::HLine);
+        line_2->setFrameShadow(QFrame::Sunken);
+
+        verticalLayout_3->addWidget(line_2);
+
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        CPUutiChk = new QCheckBox(groupBox);
+        CPUutiChk->setObjectName(QStringLiteral("CPUutiChk"));
+        CPUutiChk->setChecked(false);
+
+        horizontalLayout->addWidget(CPUutiChk);
+
         CPUvoltChk = new QCheckBox(groupBox);
         CPUvoltChk->setObjectName(QStringLiteral("CPUvoltChk"));
         CPUvoltChk->setChecked(false);
@@ -264,12 +291,6 @@ public:
         MENutiChk->setChecked(false);
 
         horizontalLayout->addWidget(MENutiChk);
-
-        CPUutiChk = new QCheckBox(groupBox);
-        CPUutiChk->setObjectName(QStringLiteral("CPUutiChk"));
-        CPUutiChk->setChecked(false);
-
-        horizontalLayout->addWidget(CPUutiChk);
 
 
         verticalLayout->addLayout(horizontalLayout);
@@ -325,6 +346,11 @@ public:
 
         GPUMCutiChk = new QCheckBox(groupBox);
         GPUMCutiChk->setObjectName(QStringLiteral("GPUMCutiChk"));
+        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Maximum);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(GPUMCutiChk->sizePolicy().hasHeightForWidth());
+        GPUMCutiChk->setSizePolicy(sizePolicy3);
         GPUMCutiChk->setChecked(false);
 
         verticalLayout_3->addWidget(GPUMCutiChk);
@@ -336,43 +362,36 @@ public:
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
         sizePolicy2.setHeightForWidth(groupBox_4->sizePolicy().hasHeightForWidth());
         groupBox_4->setSizePolicy(sizePolicy2);
-        groupBox_4->setMinimumSize(QSize(0, 71));
-        picNameBtn = new QToolButton(groupBox_4);
-        picNameBtn->setObjectName(QStringLiteral("picNameBtn"));
-        picNameBtn->setGeometry(QRect(220, 40, 71, 20));
-        imgNum = new QLabel(groupBox_4);
-        imgNum->setObjectName(QStringLiteral("imgNum"));
-        imgNum->setGeometry(QRect(230, 70, 54, 12));
-        widget = new QWidget(groupBox_4);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(20, 30, 130, 90));
-        verticalLayout_9 = new QVBoxLayout(widget);
-        verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
-        verticalLayout_9->setContentsMargins(0, 0, 0, 0);
-        imgShowChk = new QCheckBox(widget);
+        groupBox_4->setMinimumSize(QSize(0, 140));
+        verticalLayout_13 = new QVBoxLayout(groupBox_4);
+        verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        verticalLayout_12 = new QVBoxLayout();
+        verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
+        verticalLayout_11 = new QVBoxLayout();
+        verticalLayout_11->setObjectName(QStringLiteral("verticalLayout_11"));
+        imgShowChk = new QCheckBox(groupBox_4);
         imgShowChk->setObjectName(QStringLiteral("imgShowChk"));
 
-        verticalLayout_9->addWidget(imgShowChk);
+        verticalLayout_11->addWidget(imgShowChk);
 
-        imageShow = new QLabel(widget);
-        imageShow->setObjectName(QStringLiteral("imageShow"));
-        imageShow->setMinimumSize(QSize(128, 64));
-        imageShow->setAlignment(Qt::AlignCenter);
+        picNameBtn = new QToolButton(groupBox_4);
+        picNameBtn->setObjectName(QStringLiteral("picNameBtn"));
 
-        verticalLayout_9->addWidget(imageShow);
+        verticalLayout_11->addWidget(picNameBtn);
 
-        widget1 = new QWidget(groupBox_4);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(200, 100, 96, 25));
-        horizontalLayout_8 = new QHBoxLayout(widget1);
+
+        verticalLayout_12->addLayout(verticalLayout_11);
+
+        horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
-        horizontalLayout_8->setContentsMargins(0, 0, 0, 0);
-        imgLoop = new QLabel(widget1);
+        imgLoop = new QLabel(groupBox_4);
         imgLoop->setObjectName(QStringLiteral("imgLoop"));
 
         horizontalLayout_8->addWidget(imgLoop);
 
-        imgLoopTime = new QSpinBox(widget1);
+        imgLoopTime = new QSpinBox(groupBox_4);
         imgLoopTime->setObjectName(QStringLiteral("imgLoopTime"));
         imgLoopTime->setMinimum(1);
         imgLoopTime->setMaximum(20);
@@ -380,7 +399,55 @@ public:
         horizontalLayout_8->addWidget(imgLoopTime);
 
 
+        verticalLayout_12->addLayout(horizontalLayout_8);
+
+
+        horizontalLayout_9->addLayout(verticalLayout_12);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_9->addItem(horizontalSpacer_2);
+
+        verticalLayout_9 = new QVBoxLayout();
+        verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
+        line_5 = new QFrame(groupBox_4);
+        line_5->setObjectName(QStringLiteral("line_5"));
+        line_5->setFrameShape(QFrame::HLine);
+        line_5->setFrameShadow(QFrame::Sunken);
+
+        verticalLayout_9->addWidget(line_5);
+
+        imageShow = new QLabel(groupBox_4);
+        imageShow->setObjectName(QStringLiteral("imageShow"));
+        imageShow->setMinimumSize(QSize(128, 64));
+        imageShow->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_9->addWidget(imageShow);
+
+        line_6 = new QFrame(groupBox_4);
+        line_6->setObjectName(QStringLiteral("line_6"));
+        line_6->setFrameShape(QFrame::HLine);
+        line_6->setFrameShadow(QFrame::Sunken);
+
+        verticalLayout_9->addWidget(line_6);
+
+        imgNum = new QLabel(groupBox_4);
+        imgNum->setObjectName(QStringLiteral("imgNum"));
+
+        verticalLayout_9->addWidget(imgNum);
+
+
+        horizontalLayout_9->addLayout(verticalLayout_9);
+
+
+        verticalLayout_13->addLayout(horizontalLayout_9);
+
+
         verticalLayout_8->addWidget(groupBox_4);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_8->addItem(verticalSpacer);
 
 
         verticalLayout_4->addWidget(groupBox_2);
@@ -390,10 +457,6 @@ public:
 
         gridLayout = new QGridLayout();
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_4, 0, 0, 1, 1);
-
         outputStateLB = new QLabel(centralwidget);
         outputStateLB->setObjectName(QStringLiteral("outputStateLB"));
         outputStateLB->setMinimumSize(QSize(60, 32));
@@ -402,29 +465,33 @@ public:
 
         gridLayout->addWidget(outputStateLB, 0, 2, 1, 1);
 
-        autoBox = new QCheckBox(centralwidget);
-        autoBox->setObjectName(QStringLiteral("autoBox"));
-
-        gridLayout->addWidget(autoBox, 0, 3, 1, 1);
-
         autoSetMsgBtn = new QPushButton(centralwidget);
         autoSetMsgBtn->setObjectName(QStringLiteral("autoSetMsgBtn"));
         autoSetMsgBtn->setMinimumSize(QSize(40, 40));
         autoSetMsgBtn->setMaximumSize(QSize(50, 16777215));
         autoSetMsgBtn->setAutoRepeatDelay(300);
 
-        gridLayout->addWidget(autoSetMsgBtn, 0, 4, 1, 1);
+        gridLayout->addWidget(autoSetMsgBtn, 0, 5, 1, 1);
+
+        autoBox = new QCheckBox(centralwidget);
+        autoBox->setObjectName(QStringLiteral("autoBox"));
+
+        gridLayout->addWidget(autoBox, 0, 4, 1, 1);
+
+        stopBtn = new QPushButton(centralwidget);
+        stopBtn->setObjectName(QStringLiteral("stopBtn"));
+        stopBtn->setMinimumSize(QSize(40, 40));
+
+        gridLayout->addWidget(stopBtn, 0, 6, 1, 1);
 
         label_4 = new QLabel(centralwidget);
         label_4->setObjectName(QStringLiteral("label_4"));
 
         gridLayout->addWidget(label_4, 0, 1, 1, 1);
 
-        stopBtn = new QPushButton(centralwidget);
-        stopBtn->setObjectName(QStringLiteral("stopBtn"));
-        stopBtn->setMinimumSize(QSize(40, 40));
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout->addWidget(stopBtn, 0, 5, 1, 1);
+        gridLayout->addItem(horizontalSpacer_4, 0, 3, 1, 1);
 
 
         verticalLayout_5->addLayout(gridLayout);
@@ -454,11 +521,11 @@ public:
 
         version = new QLabel(centralwidget);
         version->setObjectName(QStringLiteral("version"));
-        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Minimum);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(version->sizePolicy().hasHeightForWidth());
-        version->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy4(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(version->sizePolicy().hasHeightForWidth());
+        version->setSizePolicy(sizePolicy4);
         QFont font;
         font.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
         font.setPointSize(7);
@@ -471,7 +538,12 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 394, 21));
+        menubar->setGeometry(QRect(0, 0, 390, 25));
+        QSizePolicy sizePolicy5(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(menubar->sizePolicy().hasHeightForWidth());
+        menubar->setSizePolicy(sizePolicy5);
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -495,9 +567,9 @@ public:
         groupBox->setTitle(QApplication::translate("MainWindow", "\347\241\254\344\273\266\344\277\241\346\201\257", Q_NULLPTR));
         hwChkBox->setText(QApplication::translate("MainWindow", "\346\230\276\347\244\272\347\241\254\344\273\266\344\277\241\346\201\257", Q_NULLPTR));
         label_2->setText(QApplication::translate("MainWindow", "\345\276\252\347\216\257\346\254\241\346\225\260", Q_NULLPTR));
+        CPUutiChk->setText(QApplication::translate("MainWindow", "CPU\344\275\277\347\224\250\347\216\207", Q_NULLPTR));
         CPUvoltChk->setText(QApplication::translate("MainWindow", "CPU\347\224\265\345\216\213", Q_NULLPTR));
         MENutiChk->setText(QApplication::translate("MainWindow", "\345\206\205\345\255\230\344\275\277\347\224\250\347\216\207", Q_NULLPTR));
-        CPUutiChk->setText(QApplication::translate("MainWindow", "CPU\344\275\277\347\224\250\347\216\207", Q_NULLPTR));
         CPUpkgChk->setText(QApplication::translate("MainWindow", "CPU\345\212\237\350\200\227", Q_NULLPTR));
         CPUclkChk->setText(QApplication::translate("MainWindow", "CPU\351\242\221\347\216\207", Q_NULLPTR));
         CPUtmpChk->setText(QApplication::translate("MainWindow", "CPU\346\270\251\345\272\246", Q_NULLPTR));
@@ -506,16 +578,16 @@ public:
         GPUtmpChk->setText(QApplication::translate("MainWindow", "GPU\346\270\251\345\272\246", Q_NULLPTR));
         GPUMCutiChk->setText(QApplication::translate("MainWindow", "GPU\346\230\276\345\255\230\344\275\277\347\224\250\347\216\207", Q_NULLPTR));
         groupBox_4->setTitle(QApplication::translate("MainWindow", "\344\272\214\345\200\274\345\214\226\345\212\250\347\224\273/\345\233\276\347\211\207", Q_NULLPTR));
-        picNameBtn->setText(QApplication::translate("MainWindow", "\351\200\211\346\213\251\345\233\276\347\211\207", Q_NULLPTR));
-        imgNum->setText(QApplication::translate("MainWindow", "\345\233\276\347\211\207\346\225\260:", Q_NULLPTR));
         imgShowChk->setText(QApplication::translate("MainWindow", "\346\230\276\347\244\272\345\212\250\347\224\273/\345\233\276\347\211\207", Q_NULLPTR));
-        imageShow->setText(QApplication::translate("MainWindow", "\345\233\276\347\211\207\351\242\204\350\247\210", Q_NULLPTR));
+        picNameBtn->setText(QApplication::translate("MainWindow", "\351\200\211\346\213\251\345\233\276\347\211\207", Q_NULLPTR));
         imgLoop->setText(QApplication::translate("MainWindow", "\345\276\252\347\216\257\346\254\241\346\225\260", Q_NULLPTR));
-        outputStateLB->setText(QApplication::translate("MainWindow", "(\302\264\357\275\260\342\210\200\357\275\260`)", Q_NULLPTR));
-        autoBox->setText(QApplication::translate("MainWindow", "\347\250\213\345\272\217\350\277\220\350\241\214\345\220\216\350\207\252\345\212\250\345\220\257\345\212\250", Q_NULLPTR));
+        imageShow->setText(QApplication::translate("MainWindow", "(\345\233\276\347\211\207\351\242\204\350\247\210)", Q_NULLPTR));
+        imgNum->setText(QApplication::translate("MainWindow", "\350\257\267\345\205\210\351\200\211\346\213\251\345\233\276\347\211\207", Q_NULLPTR));
+        outputStateLB->setText(QApplication::translate("MainWindow", "\346\227\240", Q_NULLPTR));
         autoSetMsgBtn->setText(QApplication::translate("MainWindow", "\345\220\257\345\212\250", Q_NULLPTR));
-        label_4->setText(QApplication::translate("MainWindow", "\347\212\266\346\200\201:", Q_NULLPTR));
+        autoBox->setText(QApplication::translate("MainWindow", "\347\250\213\345\272\217\350\277\220\350\241\214\345\220\216\350\207\252\345\212\250\345\220\257\345\212\250", Q_NULLPTR));
         stopBtn->setText(QApplication::translate("MainWindow", "\345\201\234\346\255\242", Q_NULLPTR));
+        label_4->setText(QApplication::translate("MainWindow", "\347\212\266\346\200\201:", Q_NULLPTR));
         minniChk->setText(QApplication::translate("MainWindow", "\345\220\257\345\212\250\351\273\230\350\256\244\346\234\200\345\260\217\345\214\226", Q_NULLPTR));
         hideBtn->setText(QApplication::translate("MainWindow", "\346\234\200\345\260\217\345\214\226", Q_NULLPTR));
         version->setText(QApplication::translate("MainWindow", "ESP8266_PCReader 0.1(2104151241)", Q_NULLPTR));

@@ -84,6 +84,8 @@ private slots:
 
     void on_picNameBtn_clicked();
 
+    void on_imgShowChk_stateChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     ThreadController THC;
