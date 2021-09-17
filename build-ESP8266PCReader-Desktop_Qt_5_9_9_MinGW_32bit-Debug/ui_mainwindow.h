@@ -92,7 +92,6 @@ public:
     QVBoxLayout *verticalLayout_9;
     QFrame *line_5;
     QLabel *imageShow;
-    QFrame *line_6;
     QLabel *imgNum;
     QSpacerItem *verticalSpacer;
     QGridLayout *gridLayout;
@@ -424,15 +423,10 @@ public:
 
         verticalLayout_9->addWidget(imageShow);
 
-        line_6 = new QFrame(groupBox_4);
-        line_6->setObjectName(QStringLiteral("line_6"));
-        line_6->setFrameShape(QFrame::HLine);
-        line_6->setFrameShadow(QFrame::Sunken);
-
-        verticalLayout_9->addWidget(line_6);
-
         imgNum = new QLabel(groupBox_4);
         imgNum->setObjectName(QStringLiteral("imgNum"));
+        imgNum->setLayoutDirection(Qt::RightToLeft);
+        imgNum->setAlignment(Qt::AlignCenter);
 
         verticalLayout_9->addWidget(imgNum);
 
@@ -590,7 +584,7 @@ public:
         label_4->setText(QApplication::translate("MainWindow", "\347\212\266\346\200\201:", Q_NULLPTR));
         minniChk->setText(QApplication::translate("MainWindow", "\345\220\257\345\212\250\351\273\230\350\256\244\346\234\200\345\260\217\345\214\226", Q_NULLPTR));
         hideBtn->setText(QApplication::translate("MainWindow", "\346\234\200\345\260\217\345\214\226", Q_NULLPTR));
-        version->setText(QApplication::translate("MainWindow", "ESP8266_PCReader 0.1(2104151241)", Q_NULLPTR));
+        version->setText(QApplication::translate("MainWindow", "\347\211\210\346\234\254\345\217\267", Q_NULLPTR));
         Q_UNUSED(MainWindow);
     } // retranslateUi
 

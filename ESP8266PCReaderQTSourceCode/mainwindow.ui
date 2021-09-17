@@ -495,16 +495,15 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="Line" name="line_6">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
                    <widget class="QLabel" name="imgNum">
+                    <property name="layoutDirection">
+                     <enum>Qt::RightToLeft</enum>
+                    </property>
                     <property name="text">
                      <string>请先选择图片</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -672,7 +671,7 @@
        </font>
       </property>
       <property name="text">
-       <string>ESP8266_PCReader 0.1(2104151241)</string>
+       <string>版本号</string>
       </property>
       <property name="textFormat">
        <enum>Qt::AutoText</enum>

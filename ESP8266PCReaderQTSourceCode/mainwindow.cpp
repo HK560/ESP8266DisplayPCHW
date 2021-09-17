@@ -19,6 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
     ui->comChoBox->clear();
+    QString ver="0.2";
+    QString date="2109171800";
+    ui->version->setText(QString("ESP8266_PCReader %1(%2)").arg(ver).arg(date));
 
     //找到可用串口
     foreach(const QSerialPortInfo &info,QSerialPortInfo::availablePorts())
@@ -173,6 +176,9 @@ MainWindow::MainWindow(QWidget *parent)
 
         config::imageInfoLoopTime=configFile->value("IMAGEINFO/LOOP_TIME").toInt();
         ui->imgLoopTime->setValue(configFile->value("IMAGEINFO/LOOP_TIME").toInt());
+
+        if(configFile->value("IMAGEINFO/IMAGEPATH").toBool()==true)
+            loadImageFilePathFromConfig();
 
     }
 
@@ -445,6 +451,8 @@ void MainWindow::on_saveBtn_clicked()
         configFile->setValue("OutputSetting/IMAGEINFO",false);
     }
 
+    saveImageFilePathToConfig();
+
 //    if(ui->imgCycChk->checkState()==Qt::Checked){
 //        config::imageInfoLoop=true;
 //        configFile->setValue("IMAGEINFO/LOOP_TIME",true);
@@ -630,16 +638,13 @@ void MainWindow::on_picNameBtn_clicked()
         qDebug()<<files.at(i).toUtf8();
         if(imageToUse.load(files.at(i))==false)
             QMessageBox::warning(this,"错误","读取图片失败，请检查选择的是否是图片");
-        if(imageToUse.height()>64||imageToUse.width()>128){
-            QMessageBox::warning(this,"错误","分辨率超过128x64");
+        if(imageToUse.height()!=64||imageToUse.width()!=128){
+            QMessageBox::warning(this,"错误","读取失败，图片分辨率不是128x64，请自行将图片分辨率裁剪为128x64");
             return;
         }
     }
 
     qDebug()<<"readFilesList";
-    //    if(imgInfoList!=NULL)
-    //        delete [] imgInfoList;
-
 
     imgInfoList=new imageInfo[files.size()];
     imgListSize=files.size();
@@ -657,65 +662,20 @@ void MainWindow::on_picNameBtn_clicked()
         int bytePerLine = grayImage->bytesPerLine();
 
         imgInfoList[i].binData=new unsigned char[bytePerLine * grayImage->height()];
-        //imgInfoList[i].XBM_DATA=new QByteArray[1024];//给bindata new新的空间
-        //uchar* imgData=nullptr;
-        //imgData= new unsigned char[bytePerLine * grayImage->height()];
+
         QImage* binaryImg = binImg->process(grayImage, imgInfoList[i].binData,imgInfoList[i].XBM_DATA);//二值化处理,图片存储到binaryImg,位图数组在binData
 
         QImage f1=binaryImg->scaled(ui->imageShow->size(),Qt::KeepAspectRatio);//显示出图片
         ui->imageShow->setPixmap(QPixmap::fromImage(f1));
         qDebug()<<"calXBM";
-        //        int sum=0;
-        //        for(int k=0;k<grayImage->height();++k){
-        //            for(int j=0;j<grayImage->width();++j){
-        //                //qDebug()<<uchar(imgInfoList[i].binData[ k * bytePerLine + j])<<" ";
-        //                sum++;
-        //            }
-        //        }
-        //        qDebug()<<"图片："<<i;
-        //        for(int gg=0;gg<1024;gg++){
-        //            qDebug()<<hex<<uchar(imgInfoList[i].XBM_DATA[gg]);
-        //            //ui->textEdit->append()
-        //        }
+
         this->repaint();//刷新组件
-        //        qDebug()<<sum;
 
-
-
-
-
-        //ui->textEdit->append()
-        //}
-        //        if(!serial->waitForBytesWritten())   //这一句很关键，决定是否能发送成功
-        //        {
-        //            qDebug()<<"serial write error";
-        //        }
-        //        QByteArray aaa;
-        //        aaa[0]=0xAA;
-        //        aaa[1]=0x22;
-        //        serial->write(aaa);
-        //serial->waitForBytesWritten();
-        //serial->close();
         delete [] binImg;
-
-        //delete  tt;
-       // delete  binaryImg;
-        //delete  grayImage;
         qDebug()<<"pic:"<<i<<"END";
-        config::imageReady=true;
+
     }
-
-
-
-    //grayImage.save("D:/grayimg.png");
-    //QPixmap image(files.first());
-    //QImage f1=grayImage;
-    //QPixmap image;
-    //image.fromImage(grayImage);
-    //QPixmap outputImage=image.scaled(ui->label->size(),Qt::KeepAspectRatio);
-
-
-    //qDebug()<<uchar(imgData[0]);
+    config::imageReady=true;
     qDebug()<<"end";
 }
 
@@ -727,4 +687,67 @@ void MainWindow::on_imgShowChk_stateChanged(int arg1)
         MainWindow::saveImageInfoSetting();
         return;
     }
+}
+
+void MainWindow::saveImageFilePathToConfig()
+{
+    QSettings *configFile=new QSettings("./config.ini",QSettings::IniFormat);
+    configFile->remove("IMAGEPATH");
+    if(config::imageReady==false){
+        qDebug()<<"没有图片信息,不保存路径";
+        configFile->setValue("IMAGEINFO/IMAGEPATH",false);
+        return;
+    }else{
+
+        //configFile->remove("IMAGEPATH");
+        configFile->setValue("IMAGEPATH/NUM",imgListSize);
+        //configFile->setValue("HARDWAREINFO/HARDWAREINFO_MENuti",false);
+        for(int k=0;k<imgListSize;k++){
+            configFile->setValue(QString("IMAGEPATH/IMAGE_PATH_%1").arg(k),imgInfoList[k].fileName);
+        }
+        qDebug()<<"已保存图片路径信息";
+        configFile->setValue("IMAGEINFO/IMAGEPATH",true);
+    }
+
+
+}
+
+void MainWindow::loadImageFilePathFromConfig()
+{
+    if(imgInfoList!=nullptr){
+        delete [] imgInfoList;
+        imgInfoList=nullptr;
+    }
+    QSettings *configFile=new QSettings("./config.ini",QSettings::IniFormat);
+    int listSize=configFile->value("IMAGEPATH/NUM").toInt();
+    imgInfoList=new imageInfo[listSize];
+    ui->imgNum->setText(QString("图片数:%1").arg(listSize));
+    for(int i=0;i<listSize;i++){
+        QString imagePath=configFile->value(QString("IMAGEPATH/IMAGE_PATH_%1").arg(i)).toString();
+        imgInfoList[i].fileName=imagePath;
+        imgInfoList[i].XBM_DATA.resize(1024);
+        CBinarization* binImg=new CBinarization(imagePath);
+
+        binImg->alterImage=false;
+
+        QImage* grayImage = binImg->grayScaleImg();//获取灰度图
+        int threshold=binImg->Otsu(grayImage);//计算阈值
+        binImg->threshold=threshold;//阈值
+        int bytePerLine = grayImage->bytesPerLine();
+
+        imgInfoList[i].binData=new unsigned char[bytePerLine * grayImage->height()];
+        //imgInfoList[i].XBM_DATA=new QByteArray[1024];//给bindata new新的空间
+        //uchar* imgData=nullptr;
+        //imgData= new unsigned char[bytePerLine * grayImage->height()];
+        QImage* binaryImg = binImg->process(grayImage, imgInfoList[i].binData,imgInfoList[i].XBM_DATA);//二值化处理,图片存储到binaryImg,位图数组在binData
+
+        QImage f1=binaryImg->scaled(ui->imageShow->size(),Qt::KeepAspectRatio);//显示出图片
+        ui->imageShow->setPixmap(QPixmap::fromImage(f1));
+        this->repaint();//刷新组件
+
+        delete [] binImg;
+        qDebug()<<"pic:"<<i<<"END";
+
+    }
+    config::imageReady=true;
 }

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[33];
-    char stringdata0[590];
+    QByteArrayData data[35];
+    char stringdata0[644];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -63,7 +63,9 @@ QT_MOC_LITERAL(28, 472, 24), // "on_minniChk_stateChanged"
 QT_MOC_LITERAL(29, 497, 24), // "on_hwChkBox_stateChanged"
 QT_MOC_LITERAL(30, 522, 18), // "on_stopBtn_clicked"
 QT_MOC_LITERAL(31, 541, 21), // "on_picNameBtn_clicked"
-QT_MOC_LITERAL(32, 563, 26) // "on_imgShowChk_stateChanged"
+QT_MOC_LITERAL(32, 563, 26), // "on_imgShowChk_stateChanged"
+QT_MOC_LITERAL(33, 590, 25), // "saveImageFilePathToConfig"
+QT_MOC_LITERAL(34, 616, 27) // "loadImageFilePathFromConfig"
 
     },
     "MainWindow\0on_openComBtn_clicked\0\0"
@@ -80,7 +82,9 @@ QT_MOC_LITERAL(32, 563, 26) // "on_imgShowChk_stateChanged"
     "QSystemTrayIcon::ActivationReason\0"
     "reason\0on_minniChk_stateChanged\0"
     "on_hwChkBox_stateChanged\0on_stopBtn_clicked\0"
-    "on_picNameBtn_clicked\0on_imgShowChk_stateChanged"
+    "on_picNameBtn_clicked\0on_imgShowChk_stateChanged\0"
+    "saveImageFilePathToConfig\0"
+    "loadImageFilePathFromConfig"
 };
 #undef QT_MOC_LITERAL
 
@@ -90,7 +94,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      25,   14, // methods
+      27,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -98,31 +102,33 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  139,    2, 0x08 /* Private */,
-       3,    0,  140,    2, 0x08 /* Private */,
-       4,    0,  141,    2, 0x08 /* Private */,
-       5,    0,  142,    2, 0x08 /* Private */,
-       6,    0,  143,    2, 0x08 /* Private */,
-       7,    0,  144,    2, 0x08 /* Private */,
-       8,    1,  145,    2, 0x08 /* Private */,
-      10,    0,  148,    2, 0x08 /* Private */,
-      11,    1,  149,    2, 0x08 /* Private */,
-      13,    1,  152,    2, 0x08 /* Private */,
-      15,    1,  155,    2, 0x08 /* Private */,
-      16,    1,  158,    2, 0x08 /* Private */,
-      18,    0,  161,    2, 0x08 /* Private */,
-      19,    1,  162,    2, 0x08 /* Private */,
-      20,    0,  165,    2, 0x08 /* Private */,
-      21,    0,  166,    2, 0x08 /* Private */,
-      22,    0,  167,    2, 0x08 /* Private */,
-      23,    0,  168,    2, 0x08 /* Private */,
-      24,    0,  169,    2, 0x08 /* Private */,
-      25,    1,  170,    2, 0x08 /* Private */,
-      28,    1,  173,    2, 0x08 /* Private */,
-      29,    1,  176,    2, 0x08 /* Private */,
-      30,    0,  179,    2, 0x08 /* Private */,
-      31,    0,  180,    2, 0x08 /* Private */,
-      32,    1,  181,    2, 0x08 /* Private */,
+       1,    0,  149,    2, 0x08 /* Private */,
+       3,    0,  150,    2, 0x08 /* Private */,
+       4,    0,  151,    2, 0x08 /* Private */,
+       5,    0,  152,    2, 0x08 /* Private */,
+       6,    0,  153,    2, 0x08 /* Private */,
+       7,    0,  154,    2, 0x08 /* Private */,
+       8,    1,  155,    2, 0x08 /* Private */,
+      10,    0,  158,    2, 0x08 /* Private */,
+      11,    1,  159,    2, 0x08 /* Private */,
+      13,    1,  162,    2, 0x08 /* Private */,
+      15,    1,  165,    2, 0x08 /* Private */,
+      16,    1,  168,    2, 0x08 /* Private */,
+      18,    0,  171,    2, 0x08 /* Private */,
+      19,    1,  172,    2, 0x08 /* Private */,
+      20,    0,  175,    2, 0x08 /* Private */,
+      21,    0,  176,    2, 0x08 /* Private */,
+      22,    0,  177,    2, 0x08 /* Private */,
+      23,    0,  178,    2, 0x08 /* Private */,
+      24,    0,  179,    2, 0x08 /* Private */,
+      25,    1,  180,    2, 0x08 /* Private */,
+      28,    1,  183,    2, 0x08 /* Private */,
+      29,    1,  186,    2, 0x08 /* Private */,
+      30,    0,  189,    2, 0x08 /* Private */,
+      31,    0,  190,    2, 0x08 /* Private */,
+      32,    1,  191,    2, 0x08 /* Private */,
+      33,    0,  194,    2, 0x08 /* Private */,
+      34,    0,  195,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -150,6 +156,8 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   17,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -185,6 +193,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 22: _t->on_stopBtn_clicked(); break;
         case 23: _t->on_picNameBtn_clicked(); break;
         case 24: _t->on_imgShowChk_stateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 25: _t->saveImageFilePathToConfig(); break;
+        case 26: _t->loadImageFilePathFromConfig(); break;
         default: ;
         }
     }
@@ -215,13 +225,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 25)
+        if (_id < 27)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 25;
+        _id -= 27;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 25)
+        if (_id < 27)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 25;
+        _id -= 27;
     }
     return _id;
 }

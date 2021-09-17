@@ -86,6 +86,9 @@ private slots:
 
     void on_imgShowChk_stateChanged(int arg1);
 
+    void saveImageFilePathToConfig();//保护图片文件的路径到配置文件
+    void loadImageFilePathFromConfig();//读取配置
+
 private:
     Ui::MainWindow *ui;
     ThreadController THC;
