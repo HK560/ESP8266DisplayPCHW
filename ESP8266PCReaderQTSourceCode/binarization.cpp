@@ -113,7 +113,7 @@ QImage* CBinarization::process(QImage* img,uchar* binarydata, QByteArray& binDAT
                     binDATA[k]=0x00;
                 }
                 g = *(data + i * bytePerLine + j);
-                if(int(g) >= threshold){
+                if(int(g) > threshold){
                     binarydata[ i * bytePerLine + j] = 0xFF;
                     //char temp=0x01;
                     binDATA[k]=binDATA[k]>>1;

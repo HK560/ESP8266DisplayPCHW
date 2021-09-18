@@ -53,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
 
         configFile->setValue("OutputSetting/IMAGEINFO",false);
         configFile->setValue("IMAGEINFO/LOOP_TIME",1);
+        configFile->setValue("IMAGEINFO/FPS",25.0);
         //在这里需要添加新项目
 
     }else
@@ -162,6 +163,11 @@ MainWindow::MainWindow(QWidget *parent)
 
         //IMAGE INFO
 
+
+
+        if(configFile->value("IMAGEINFO/IMAGEPATH").toBool()==true)
+            loadImageFilePathFromConfig();
+
         TmpState=config::imageInfo=configFile->value("OutputSetting/IMAGEINFO").toBool();
         if(TmpState==true)
             ui->imgShowChk->setCheckState(Qt::Checked);
@@ -177,8 +183,8 @@ MainWindow::MainWindow(QWidget *parent)
         config::imageInfoLoopTime=configFile->value("IMAGEINFO/LOOP_TIME").toInt();
         ui->imgLoopTime->setValue(configFile->value("IMAGEINFO/LOOP_TIME").toInt());
 
-        if(configFile->value("IMAGEINFO/IMAGEPATH").toBool()==true)
-            loadImageFilePathFromConfig();
+        config::imageFps=configFile->value("IMAGEINFO/FPS").toDouble();
+        ui->fps->setValue(configFile->value("IMAGEINFO/FPS").toDouble());
 
     }
 
@@ -462,6 +468,7 @@ void MainWindow::on_saveBtn_clicked()
 //    }
 
     configFile->setValue("IMAGEINFO/LOOP_TIME",ui->imgLoopTime->value());
+    configFile->setValue("IMAGEINFO/FPS",ui->fps->value());
 
 
 
@@ -558,6 +565,7 @@ void MainWindow::saveImageInfoSetting()
 //    }else
 //        config::imageInfoLoop=false;
     config::imageInfoLoopTime=ui->imgLoopTime->value();
+    config::imageFps=ui->fps->value();
     //需要添加加载图片参数的函数
 }
 
@@ -628,7 +636,7 @@ void MainWindow::on_picNameBtn_clicked()
     QStringList files = QFileDialog::getOpenFileNames(
                 this,
                 "选择一个或者多个图片",
-                QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
+                QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));//QStandardPaths::DesktopLocation
     if(files.isEmpty()){
         QMessageBox::warning(this,"提示","选择图片失败");
         return;
@@ -721,6 +729,7 @@ void MainWindow::loadImageFilePathFromConfig()
     QSettings *configFile=new QSettings("./config.ini",QSettings::IniFormat);
     int listSize=configFile->value("IMAGEPATH/NUM").toInt();
     imgInfoList=new imageInfo[listSize];
+    imgListSize=listSize;
     ui->imgNum->setText(QString("图片数:%1").arg(listSize));
     for(int i=0;i<listSize;i++){
         QString imagePath=configFile->value(QString("IMAGEPATH/IMAGE_PATH_%1").arg(i)).toString();
@@ -750,4 +759,18 @@ void MainWindow::loadImageFilePathFromConfig()
 
     }
     config::imageReady=true;
+}
+
+void MainWindow::on_imgLoopTime_valueChanged(int arg1)
+{
+    qDebug()<<"imgCycleTimechange:"<<arg1;
+    config::imageInfoLoopTime=arg1;
+    qDebug()<<config::imageInfoLoopTime;
+}
+
+void MainWindow::on_fps_valueChanged(double arg1)
+{
+    qDebug()<<"imgFpschange:"<<arg1;
+    config::imageFps=arg1;
+    qDebug()<<config::imageFps;
 }

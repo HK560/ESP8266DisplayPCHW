@@ -157,7 +157,7 @@
                 <enum>QFrame::NoFrame</enum>
                </property>
                <property name="text">
-                <string>作者:HK560</string>
+                <string>byHK560</string>
                </property>
                <property name="textFormat">
                 <enum>Qt::PlainText</enum>
@@ -410,13 +410,16 @@
              <property name="title">
               <string>二值化动画/图片</string>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_13">
+             <layout class="QHBoxLayout" name="horizontalLayout_11">
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_9">
+               <layout class="QHBoxLayout" name="horizontalLayout_10">
                 <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_12">
+                 <layout class="QVBoxLayout" name="verticalLayout_10">
                   <item>
                    <layout class="QVBoxLayout" name="verticalLayout_11">
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
                     <item>
                      <widget class="QCheckBox" name="imgShowChk">
                       <property name="text">
@@ -449,6 +452,36 @@
                       </property>
                       <property name="maximum">
                        <number>20</number>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_9">
+                    <item>
+                     <widget class="QLabel" name="label_3">
+                      <property name="text">
+                       <string>FPS</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QDoubleSpinBox" name="fps">
+                      <property name="decimals">
+                       <number>2</number>
+                      </property>
+                      <property name="minimum">
+                       <double>0.010000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>200.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>25.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -689,7 +722,7 @@
      <x>0</x>
      <y>0</y>
      <width>390</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="sizePolicy">

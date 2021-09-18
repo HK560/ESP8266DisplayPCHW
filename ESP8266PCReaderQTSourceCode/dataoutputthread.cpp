@@ -88,19 +88,23 @@ void dataOutputThread::outputData()
         ///
         if(config::imageInfo==true){
             //加载设置的函数
+            qDebug()<<"输出图片";
             for(int tm=0;tm<config::imageInfoLoopTime;tm++){
+                qDebug()<<"图片循环次数"<<tm;
                 for(int i=0;i<imgListSize;i++){
-                    for(int e=0;e<1;e++){
+                    //for(int e=0;e<1;e++){
                         //            char *tt=new char(0xAA);
                         //            serial->write(tt);
                         //            tt=new char(0x55);
                         //            serial->write(tt);
+                    if(config::imageInfo!=true)
+                        break;
                         QByteArray fir,ed;
                         fir.resize(2);
                         ed.resize(2);
-                        fir[0]=ed[0]=0xAA;
-                        fir[1]=0x55;
-                        ed[1]=0x22;
+                        fir[0]=ed[0]='@';//0xAA
+                        fir[1]='$';//0x55
+                        ed[1]='&';//0x22
                         serial->write(fir);
                         if(!serial->waitForBytesWritten(-1))   //这一句很关键，决定是否能发送成功
                         {
@@ -115,10 +119,10 @@ void dataOutputThread::outputData()
                         qDebug()<<"outputData";
                         //            tt=new char(0x22);
                         //            serial->write(tt);
-                    }
+                    //}
                     QTime t;
                     t.start();
-                    while(t.elapsed()<50)
+                    while(t.elapsed()<(1000.0/config::imageFps))
                         QCoreApplication::processEvents();
                 }
             }

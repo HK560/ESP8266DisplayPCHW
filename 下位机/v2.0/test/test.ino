@@ -61,24 +61,18 @@ void refresh(){//显示函数
 }
 
 void boot(){//没有收到数据时候执行的函数
-  String title="AMD YES!";//可自定义，限制长度为15
-  String subtitle="Connecting...";//可自定义，限制长度为15
-  char titleChar[15],subtitleChar[15];
+  String title="elbadaernU";//可自定义，限制长度为15
+  String subtitle="Waiting for signal";//可自定义，限制长度为15
+  char titleChar[15],subtitleChar[30];
   title.toCharArray(titleChar,15);
-  subtitle.toCharArray(subtitleChar,15);
+  subtitle.toCharArray(subtitleChar,30);
   
   u8g2.clearBuffer();
   u8g2.setFont(u8g2_font_missingplanet_tr);
   //设置字体库可以查询u8g2库wiki：https://github.com/olikraus/u8g2/wiki/fntlistall
-  //u8g2.setCursor(20, 20);
   u8g2.drawStr((128-(u8g2.getUTF8Width(titleChar)))/2, 20, titleChar);
-  //u8g2.print("Ryzen");
-  //u8g2.setCursor(0, 35);
-  //u8g2.print("connecting PC...");
   u8g2.drawStr((128-(u8g2.getUTF8Width(subtitleChar)))/2, 40, subtitleChar);
   u8g2.sendBuffer();
-  //delay(1500); 
-  //u8g2.clear(); 
 }
 
 void setTrueName(String dataName, String& trueName,String& unit){
@@ -99,7 +93,7 @@ void setup() {
     u8g2.clearBuffer();
     Serial.begin(1500000);
     Serial.println("Ready");
-
+    boot();
 }
 //!DA#CPU=5?
 void loop() {
@@ -108,23 +102,23 @@ void loop() {
     if(Serial.available()>0){
       u8g2.clearBuffer();
         revByte = Serial.read();
-        if (revByte == 0xAA){
+        if (revByte == '@'){
             if (Serial.available() > 0){
                 revByte = Serial.read();
-                if (revByte == 0x55){
-                    int countnum = 0;
+                if (revByte == '$'){
+                    //int countnum = 0;
                     for (int i = 0; i < 1024; i++){
                         while (Serial.available() == 0)
                             ;
                         frame[i] = Serial.read();
-                        countnum++;
+                        //countnum++;
                     }
                     u8g2.firstPage();
                     do{
                         u8g2.drawXBM(0, 0, 128, 64, frame);
                     } while (u8g2.nextPage());
                 }
-                else if (revByte == 0x22)
+                else if (revByte == '&')
                     return;
             }
         }else{

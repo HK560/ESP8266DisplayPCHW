@@ -20,7 +20,8 @@ bool config::hardwareInfo_MENuti=false;
 
 bool config::imageReady=false;
 bool config::imageInfo=false;
-bool config::imageInfoLoopTime=1;
+int config::imageInfoLoopTime=1;
+double config::imageFps=25;
 
 config::config()
 {

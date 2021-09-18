@@ -28,7 +28,8 @@ public:
 
     static bool imageReady;//图片是否已经加载
     static bool imageInfo;//是否显示图片
-    static bool imageInfoLoopTime;//图片循环时间
+    static int imageInfoLoopTime;//图片循环时间
+    static double imageFps;
 
 
     static void hardwareInfoReload();

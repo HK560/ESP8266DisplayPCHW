@@ -89,6 +89,10 @@ private slots:
     void saveImageFilePathToConfig();//保护图片文件的路径到配置文件
     void loadImageFilePathFromConfig();//读取配置
 
+    void on_imgLoopTime_valueChanged(int arg1);
+
+    void on_fps_valueChanged(double arg1);
+
 private:
     Ui::MainWindow *ui;
     ThreadController THC;

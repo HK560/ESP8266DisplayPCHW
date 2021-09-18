@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
@@ -79,15 +80,18 @@ public:
     QCheckBox *GPUtmpChk;
     QCheckBox *GPUMCutiChk;
     QGroupBox *groupBox_4;
-    QVBoxLayout *verticalLayout_13;
-    QHBoxLayout *horizontalLayout_9;
-    QVBoxLayout *verticalLayout_12;
+    QHBoxLayout *horizontalLayout_11;
+    QHBoxLayout *horizontalLayout_10;
+    QVBoxLayout *verticalLayout_10;
     QVBoxLayout *verticalLayout_11;
     QCheckBox *imgShowChk;
     QToolButton *picNameBtn;
     QHBoxLayout *horizontalLayout_8;
     QLabel *imgLoop;
     QSpinBox *imgLoopTime;
+    QHBoxLayout *horizontalLayout_9;
+    QLabel *label_3;
+    QDoubleSpinBox *fps;
     QSpacerItem *horizontalSpacer_2;
     QVBoxLayout *verticalLayout_9;
     QFrame *line_5;
@@ -362,14 +366,15 @@ public:
         sizePolicy2.setHeightForWidth(groupBox_4->sizePolicy().hasHeightForWidth());
         groupBox_4->setSizePolicy(sizePolicy2);
         groupBox_4->setMinimumSize(QSize(0, 140));
-        verticalLayout_13 = new QVBoxLayout(groupBox_4);
-        verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
-        horizontalLayout_9 = new QHBoxLayout();
-        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
-        verticalLayout_12 = new QVBoxLayout();
-        verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
+        horizontalLayout_11 = new QHBoxLayout(groupBox_4);
+        horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
+        horizontalLayout_10 = new QHBoxLayout();
+        horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
+        verticalLayout_10 = new QVBoxLayout();
+        verticalLayout_10->setObjectName(QStringLiteral("verticalLayout_10"));
         verticalLayout_11 = new QVBoxLayout();
         verticalLayout_11->setObjectName(QStringLiteral("verticalLayout_11"));
+        verticalLayout_11->setContentsMargins(-1, -1, 0, -1);
         imgShowChk = new QCheckBox(groupBox_4);
         imgShowChk->setObjectName(QStringLiteral("imgShowChk"));
 
@@ -381,7 +386,7 @@ public:
         verticalLayout_11->addWidget(picNameBtn);
 
 
-        verticalLayout_12->addLayout(verticalLayout_11);
+        verticalLayout_10->addLayout(verticalLayout_11);
 
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
@@ -398,14 +403,34 @@ public:
         horizontalLayout_8->addWidget(imgLoopTime);
 
 
-        verticalLayout_12->addLayout(horizontalLayout_8);
+        verticalLayout_10->addLayout(horizontalLayout_8);
+
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        label_3 = new QLabel(groupBox_4);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_9->addWidget(label_3);
+
+        fps = new QDoubleSpinBox(groupBox_4);
+        fps->setObjectName(QStringLiteral("fps"));
+        fps->setDecimals(2);
+        fps->setMinimum(0.01);
+        fps->setMaximum(200);
+        fps->setValue(25);
+
+        horizontalLayout_9->addWidget(fps);
 
 
-        horizontalLayout_9->addLayout(verticalLayout_12);
+        verticalLayout_10->addLayout(horizontalLayout_9);
+
+
+        horizontalLayout_10->addLayout(verticalLayout_10);
 
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_9->addItem(horizontalSpacer_2);
+        horizontalLayout_10->addItem(horizontalSpacer_2);
 
         verticalLayout_9 = new QVBoxLayout();
         verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
@@ -431,10 +456,10 @@ public:
         verticalLayout_9->addWidget(imgNum);
 
 
-        horizontalLayout_9->addLayout(verticalLayout_9);
+        horizontalLayout_10->addLayout(verticalLayout_9);
 
 
-        verticalLayout_13->addLayout(horizontalLayout_9);
+        horizontalLayout_11->addLayout(horizontalLayout_10);
 
 
         verticalLayout_8->addWidget(groupBox_4);
@@ -532,7 +557,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 390, 25));
+        menubar->setGeometry(QRect(0, 0, 390, 21));
         QSizePolicy sizePolicy5(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
         sizePolicy5.setHorizontalStretch(0);
         sizePolicy5.setVerticalStretch(0);
@@ -556,7 +581,7 @@ public:
         closeBtn->setText(QApplication::translate("MainWindow", "\345\205\263\351\227\255\344\270\262\345\217\243", Q_NULLPTR));
         saveBtn->setText(QApplication::translate("MainWindow", "\344\277\235\345\255\230\350\256\276\347\275\256", Q_NULLPTR));
         aboutBtn->setText(QApplication::translate("MainWindow", "\345\205\263\344\272\216", Q_NULLPTR));
-        label->setText(QApplication::translate("MainWindow", "\344\275\234\350\200\205:HK560", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "byHK560", Q_NULLPTR));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "\346\230\276\347\244\272\350\256\276\347\275\256", Q_NULLPTR));
         groupBox->setTitle(QApplication::translate("MainWindow", "\347\241\254\344\273\266\344\277\241\346\201\257", Q_NULLPTR));
         hwChkBox->setText(QApplication::translate("MainWindow", "\346\230\276\347\244\272\347\241\254\344\273\266\344\277\241\346\201\257", Q_NULLPTR));
@@ -575,6 +600,7 @@ public:
         imgShowChk->setText(QApplication::translate("MainWindow", "\346\230\276\347\244\272\345\212\250\347\224\273/\345\233\276\347\211\207", Q_NULLPTR));
         picNameBtn->setText(QApplication::translate("MainWindow", "\351\200\211\346\213\251\345\233\276\347\211\207", Q_NULLPTR));
         imgLoop->setText(QApplication::translate("MainWindow", "\345\276\252\347\216\257\346\254\241\346\225\260", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindow", "FPS", Q_NULLPTR));
         imageShow->setText(QApplication::translate("MainWindow", "(\345\233\276\347\211\207\351\242\204\350\247\210)", Q_NULLPTR));
         imgNum->setText(QApplication::translate("MainWindow", "\350\257\267\345\205\210\351\200\211\346\213\251\345\233\276\347\211\207", Q_NULLPTR));
         outputStateLB->setText(QApplication::translate("MainWindow", "\346\227\240", Q_NULLPTR));
