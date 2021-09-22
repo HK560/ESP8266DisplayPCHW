@@ -26,6 +26,7 @@ PC需要安装运行AIDA64和本项目的上位机程序,ESP8266需要烧录本�
 - 可自动最小化到托盘(用于开机启动)
 - 可保存读取设置
 - 播放动画/图片功能
+
 ![](https://cdn.jsdelivr.net/gh/HK560/MyPicHub@master/res/pic/20210922171958.png)
 
 ## 下位机程序
