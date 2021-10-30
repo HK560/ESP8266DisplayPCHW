@@ -33,7 +33,7 @@ PC需要安装运行AIDA64和本项目的上位机程序,ESP8266需要烧录本�
 
 [视频演示](https://www.bilibili.com/video/BV1sM4y137Ay/ "视频演示")
 
-![示例2](https://cdn.jsdelivr.net/gh/HK560/MyPicHub@master/res/pic/esp8266show2.jpg)
+<img src="https://cdn.jsdelivr.net/gh/HK560/MyPicHub@master/res/pic/esp8266show2.jpg" alt="示例1" width="300" >
 
 ![示例1](https://cdn.jsdelivr.net/gh/HK560/MyPicHub@master/res/pic/esp8266Show1.jpg)
 
