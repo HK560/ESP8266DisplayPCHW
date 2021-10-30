@@ -26,16 +26,14 @@ PC需要安装运行AIDA64和本项目的上位机程序,ESP8266需要烧录本�
 - 可保存读取设置
 - 播放动画/图片功能
 
-![](https://cdn.jsdelivr.net/gh/HK560/MyPicHub@master/res/pic/20210922171958.png)
-
+<img src="https://cdn.jsdelivr.net/gh/HK560/MyPicHub@master/res/pic/20210922171958.png" alt="1" 上位机="300" >
 ## 下位机程序
 - 已开源,可以自行修改显示的字体、样式、文字, 具体参考u8g2库的官方文档
 
 [视频演示](https://www.bilibili.com/video/BV1sM4y137Ay/ "视频演示")
 
 <img src="https://cdn.jsdelivr.net/gh/HK560/MyPicHub@master/res/pic/esp8266show2.jpg" alt="示例1" width="300" >
-
-![示例1](https://cdn.jsdelivr.net/gh/HK560/MyPicHub@master/res/pic/esp8266Show1.jpg)
+<img src="https://cdn.jsdelivr.net/gh/HK560/MyPicHub@master/res/pic/esp8266Show1.jpg" alt="示例1" width="300" >
 
 ---------------
 其他说明请点击：
