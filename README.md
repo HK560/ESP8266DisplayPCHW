@@ -31,7 +31,11 @@ PC需要安装运行AIDA64和本项目的上位机程序,ESP8266需要烧录本�
 ## 下位机程序
 - 已开源,可以自行修改显示的字体、样式、文字, 具体参考u8g2库的官方文档
 
+[视频演示](https://www.bilibili.com/video/BV1sM4y137Ay/ "视频演示")
+
+---------------
+其他说明请点击：
 [Read more](https://blog.hk560.top/Aida64ForEsp8266/ "Read more")
+
 ------------
 
-**其他信息待补充完善**
