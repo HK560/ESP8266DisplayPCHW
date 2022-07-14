@@ -18,13 +18,14 @@ signals:
     void resultReady(const QString &str);
     void showMessage(const QString &str);
     void outputState(const bool run);
+    void execResult(const bool state);
 public slots:
     void openCom();
     void outputData();
     void closeCom();
     //void closeThread();
 private:
-    QSerialPort *serial;
+    QSerialPort *serial = nullptr;
 
 };
 

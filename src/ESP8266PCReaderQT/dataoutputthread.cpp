@@ -3,20 +3,29 @@
 
 dataOutputThread::dataOutputThread(QObject *parent):QObject(parent)
 {
-    serial=new QSerialPort;
+    // serial=new QSerialPort;
 }
 
 void dataOutputThread::openCom()
 {
     qDebug()<<"dataOutputThread::openCom()";
+    if(serial != nullptr){
+        serial->close();
+        delete serial;
+    }
     serial= new QSerialPort;
     serial->setPortName(aida64ReaderForESP8266::portName);
+    // if(serial->){
+    //     emit shsOpen()owMessage("串口已打开");
+    //     return;
+    // };
     serial->open(QIODevice::ReadWrite);
     if(serial->isOpen()==false){
         emit showMessage("串口未打开或未找到，请确认串口能否正常通信");
         emit outputState(false);
         qDebug()<<"comOpenFailed";
         return;}
+    emit execResult(true);
     serial->setBaudRate(1500000);
     serial->setDataBits(QSerialPort::Data8);
     serial->setParity(QSerialPort::NoParity);
@@ -41,7 +50,7 @@ void dataOutputThread::outputData()
         return;
     }
 
-    while(emit outputState(config::startpush),config::startpush==true){//判断是否启动推送
+    while(emit outputState(config::startpush),config::startpush){//判断是否启动推送
         qDebug( )<<"config::startpush"<<config::startpush;
 
 
@@ -55,7 +64,7 @@ void dataOutputThread::outputData()
 
                     qDebug()<< allValueQT[k].name << allValueQT[k].state<<endl;
                     if (allValueQT[k].state == true) {
-                        for (int i=0;i<aida64ReaderForESP8266::cycletime ;i++ ) {
+                        for (int i=0;i<aida64ReaderForESP8266::cycletime&&config::startpush;i++ ) {
                             qDebug()<< i << " times"<<endl;
                             if(aida64ReaderForESP8266::readReg(allValueQT[k].strValueName,value )==true){ //  if(Pushdata(allValueQT[k].strValueName,value )==true){ 
                                 serial->write("!");
@@ -89,7 +98,7 @@ void dataOutputThread::outputData()
             qDebug()<<"输出图片";
             for(int tm=0;tm<config::imageInfoLoopTime;tm++){
                 qDebug()<<"图片循环次数"<<tm;
-                for(int i=0;i<imgListSize;i++){
+                for(int i=0;i<imgListSize&& config::startpush;i++){
                     //for(int e=0;e<1;e++){
                         //            char *tt=new char(0xAA);
                         //            serial->write(tt);
@@ -109,7 +118,6 @@ void dataOutputThread::outputData()
                             qDebug()<<"serial write error";
                         }
 
-
                         serial->write(imgInfoList[i].XBM_DATA);
                         serial->waitForBytesWritten(-1);
                         //serial->write(ed);
@@ -126,25 +134,17 @@ void dataOutputThread::outputData()
             }
 
         }
-
-
-
-
-
-
-
-
-
-
     }
-
 }
 
 
 
 void dataOutputThread::closeCom()
 {
-    serial->close();
+    if(serial){
+        serial->close();
+        delete serial;
+    }
 
 }
 

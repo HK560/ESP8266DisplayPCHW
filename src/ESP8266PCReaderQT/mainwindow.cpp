@@ -191,6 +191,7 @@ MainWindow::MainWindow(QWidget *parent)
     delete  configFile;
     connect(&THC,&ThreadController::singal_showMeg,this,&MainWindow::singalMsg);
     connect(&THC,&ThreadController::singal_outputState,this,&MainWindow::outputState);
+    connect(&THC,&ThreadController::singal_execResult,this,&MainWindow::execState);
 
 
     connect(ui->CPUclkChk,&QCheckBox::stateChanged,this,&MainWindow::saveHardwareInfoSetting);
@@ -208,7 +209,7 @@ MainWindow::MainWindow(QWidget *parent)
     //connect(ui->imgLoopTime,&QSpinBox::valueChanged,this,&MainWindow::saveImageInfoSetting);
 
     connect(mySysTrayIcon,&QSystemTrayIcon::activated,this,&MainWindow::on_activatedSysTrayIcon);
-
+    
 
     if(config::setupPush==true){
         qDebug()<<"执行自动推送";
@@ -773,4 +774,9 @@ void MainWindow::on_fps_valueChanged(double arg1)
     qDebug()<<"imgFpschange:"<<arg1;
     config::imageFps=arg1;
     qDebug()<<config::imageFps;
+}
+
+bool MainWindow::execState(const bool &state){
+    qDebug()<<"execState:"<<state;
+    return state;
 }

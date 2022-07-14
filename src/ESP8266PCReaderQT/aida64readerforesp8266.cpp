@@ -33,6 +33,15 @@ aida64ValueListQT allValueQT[10] ={
         {"Value.SGPU1MCUTI","GPUMC_UTI",true},
         {"Value.TGPU1DIO","GPU_TMP",true},
         {"Value.SMEMUTI","MEM_UTI",true},};
+
+QSettings* aida64ReaderForESP8266::regedit = new QSettings(REG_LOCATION_NEW,QSettings::NativeFormat);
+
+bool aida64ReaderForESP8266::readReg(QString& valueName,QByteArray& value){
+    value = regedit->value(valueName).toByteArray(); // 如果没有值会返回0
+    qDebug()<<"readReg: "<<valueName<<" value :"<<value;
+    return true;
+}
+
 // void aida64ReaderForESP8266::wcharTochar(const wchar_t* wchar, char* chr, int length)
 // {
 //     WideCharToMultiByte(CP_ACP, 0, wchar, -1,
@@ -137,11 +146,4 @@ aida64ValueListQT allValueQT[10] ={
 
 // }
 
-QSettings* aida64ReaderForESP8266::regedit = new QSettings(REG_LOCATION_NEW,QSettings::NativeFormat);
-
-bool aida64ReaderForESP8266::readReg(QString& valueName,QByteArray& value){
-    value = regedit->value(valueName).toByteArray(); // 如果没有值会返回0
-    qDebug()<<"readReg: "<<valueName<<" value :"<<value;
-    return true;
-}
 

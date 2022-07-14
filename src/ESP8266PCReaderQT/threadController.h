@@ -20,6 +20,7 @@ signals:
     void singal_startCloseCom();
     void singal_showMeg(const QString &str);
     void singal_outputState(const bool run);
+    void singal_execResult(const bool state);
     //void singal_closeThread();
 
 
@@ -27,6 +28,7 @@ public  slots:
     void on_revResult(const QString &str);
     void on_msgShow(const QString &str);
     void on_outputState(const bool run);
+    void on_execResult(const bool state);
 private:
     QThread m_dataQThread;
     dataOutputThread *m_worker;

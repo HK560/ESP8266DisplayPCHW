@@ -53,6 +53,8 @@ private slots:
 
     void outputState(bool run);
 
+    bool execState(const bool &state);
+
     void on_autoBox_clicked(bool checked);
 
     void on_autoBox_stateChanged(int arg1);
