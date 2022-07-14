@@ -573,7 +573,7 @@ void MainWindow::saveImageInfoSetting()
 //关于信息按钮
 void MainWindow::on_aboutBtn_clicked()
 {
-    QDesktopServices::openUrl(QUrl("https://esp8266pcreader.hk560.workers.dev/"));
+    QDesktopServices::openUrl(QUrl("https://github.com/HK560/ESP8266DisplayPCHW"));
 }
 
 //最小化
