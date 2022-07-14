@@ -43,17 +43,17 @@ void config::hardwareInfoReload(){
 
     qDebug()<<"config::hardwareInfoReload()";
     // qDebug()<<"值："<<hardwareInfo_CPUvolt;
-    allValue[0].state=hardwareInfo_CPUvolt;
-    //qDebug()<<"实际值："<<allValue[0].state;
-    allValue[1].state=hardwareInfo_GPUvolt;
-    allValue[2].state=hardwareInfo_CPUuti;
-    allValue[3].state=hardwareInfo_CPUtmp;
-    allValue[4].state=hardwareInfo_CPUpkg;
-    allValue[5].state=hardwareInfo_CPUclk;
-    allValue[6].state=hardwareInfo_GPUuti;
-    allValue[7].state=hardwareInfo_GPUMCuti;
-    allValue[8].state=hardwareInfo_GPUtmp;
-    allValue[9].state=hardwareInfo_MENuti;
+    allValueQT[0].state=hardwareInfo_CPUvolt;
+    //qDebug()<<"实际值："<<allValueQT[0].state;
+    allValueQT[1].state=hardwareInfo_GPUvolt;
+    allValueQT[2].state=hardwareInfo_CPUuti;
+    allValueQT[3].state=hardwareInfo_CPUtmp;
+    allValueQT[4].state=hardwareInfo_CPUpkg;
+    allValueQT[5].state=hardwareInfo_CPUclk;
+    allValueQT[6].state=hardwareInfo_GPUuti;
+    allValueQT[7].state=hardwareInfo_GPUMCuti;
+    allValueQT[8].state=hardwareInfo_GPUtmp;
+    allValueQT[9].state=hardwareInfo_MENuti;
 
 }
 

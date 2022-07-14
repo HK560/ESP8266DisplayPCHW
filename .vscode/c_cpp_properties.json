@@ -1,0 +1,41 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.19041.0",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64"
+        },
+        {
+            "name": "QT",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "D:\\Qt\\Qt5.12.12\\5.12.12\\mingw73_64\\include",
+                "D:\\Qt\\Qt5.12.12\\5.12.12\\mingw73_64\\include\\QtGui",
+                "D:\\Qt\\Qt5.12.12\\5.12.12\\mingw73_64\\include\\QtWidgets",
+                "D:\\Qt\\Qt5.12.12\\5.12.12\\mingw73_64\\include\\QtSerialPort",
+                "D:\\Qt\\Qt5.12.12\\5.12.12\\mingw73_64\\include\\QtCore"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.19041.0",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64",
+            "compilerPath": "D:/mingw64/bin/gcc.exe"
+        }
+    ],
+    "version": 4
+}

@@ -53,19 +53,19 @@ void dataOutputThread::outputData()
                 qDebug( )<<"config::hardwareInfoDPtime："<<config::hardwareInfoDPtime;
                 for (int k = 0; config::hardwareInfo==true&&k<10; ) {
 
-                    qDebug()<< allValue[k].name << allValue[k].state<<endl;
-                    if (allValue[k].state == true) {
+                    qDebug()<< allValueQT[k].name << allValueQT[k].state<<endl;
+                    if (allValueQT[k].state == true) {
                         for (int i=0;i<aida64ReaderForESP8266::cycletime ;i++ ) {
                             qDebug()<< i << " times"<<endl;
-                            if(Pushdata(allValue[k].strValueName,value )==true){
+                            if(aida64ReaderForESP8266::readReg(allValueQT[k].strValueName,value )==true){ //  if(Pushdata(allValueQT[k].strValueName,value )==true){ 
                                 serial->write("!");
                                 serial->write("DA");
                                 serial->write("#");
-                                serial->write(allValue[k].name.toUtf8());
+                                serial->write(allValueQT[k].name.toUtf8());
                                 serial->write("=");
                                 serial->write(value);
                                 serial->write("?");
-                                qDebug()<<"发送"<<allValue[k].name;
+                                qDebug()<<"发送"<<allValueQT[k].name;
                                 if(!serial->waitForBytesWritten())   //这一句很关键，决定是否能发送成功
                                 {
                                     qDebug()<<"serial write error";
@@ -76,8 +76,6 @@ void dataOutputThread::outputData()
                         }
                     }
                     k++;
-                    //                                        if(allValue[k].end != false){
-                    //                                            k=0;}
                 }
             }
         }
