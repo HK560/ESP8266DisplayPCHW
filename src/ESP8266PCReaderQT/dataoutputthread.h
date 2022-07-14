@@ -8,7 +8,7 @@
 #include <QMessageBox>
 #include "config.h"
 #include "imageinfo.h"
-
+#include <QTimer>
 
 class dataOutputThread:public   QObject{
     Q_OBJECT

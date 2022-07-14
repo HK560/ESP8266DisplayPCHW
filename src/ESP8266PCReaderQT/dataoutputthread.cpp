@@ -53,7 +53,7 @@ void dataOutputThread::outputData()
     while(emit outputState(config::startpush),config::startpush){//判断是否启动推送
         qDebug( )<<"config::startpush"<<config::startpush;
 
-
+        QTimer timer;
         if(config::hardwareInfo==true){//输出硬件信息
             config::hardwareInfoReload();
             QByteArray value;
@@ -64,8 +64,10 @@ void dataOutputThread::outputData()
 
                     qDebug()<< allValueQT[k].name << allValueQT[k].state<<endl;
                     if (allValueQT[k].state == true) {
-                        for (int i=0;i<aida64ReaderForESP8266::cycletime&&config::startpush;i++ ) {
-                            qDebug()<< i << " times"<<endl;
+                        timer.start(config::hardwareInfoDPlastTime);
+                        qDebug()<<"发送"<<allValueQT[k].name;
+                        while (timer.remainingTime()>0 &&config::startpush ) {
+                            // qDebug()<< timer.remainingTime() << " times"<<endl;
                             if(aida64ReaderForESP8266::readReg(allValueQT[k].strValueName,value )==true){ //  if(Pushdata(allValueQT[k].strValueName,value )==true){ 
                                 serial->write("!");
                                 serial->write("DA");
@@ -81,7 +83,7 @@ void dataOutputThread::outputData()
                                 }
                             }else
                                 qDebug()<<"发送失败";
-                            Sleep(1000);
+                            // Sleep(100);
                         }
                     }
                     k++;

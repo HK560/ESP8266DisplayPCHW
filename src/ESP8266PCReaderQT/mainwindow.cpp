@@ -50,6 +50,8 @@ MainWindow::MainWindow(QWidget *parent)
         configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUtmp",false);
         configFile->setValue("HARDWAREINFO/HARDWAREINFO_GPUuti",false);
         configFile->setValue("HARDWAREINFO/HARDWAREINFO_MENuti",false);
+        configFile->setValue("HARDWAREINFO/HARDWAREINFO_LASTTIME",1000);
+
 
         configFile->setValue("OutputSetting/IMAGEINFO",false);
         configFile->setValue("IMAGEINFO/LOOP_TIME",1);
@@ -93,6 +95,9 @@ MainWindow::MainWindow(QWidget *parent)
 
         config::hardwareInfoDPtime=configFile->value("HARDWAREINFO/HARDWAREINFO_TIME").toInt();
         ui->hwCycleTime->setValue(configFile->value("HARDWAREINFO/HARDWAREINFO_TIME").toInt());
+
+        config::hardwareInfoDPlastTime=configFile->value("HARDWAREINFO/HARDWAREINFO_LASTTIME").toInt();
+        ui->hwLastTime->setValue(configFile->value("HARDWAREINFO/HARDWAREINFO_LASTTIME").toInt());
 
         bool TmpState;//临时使用储存状态值
 
@@ -161,9 +166,13 @@ MainWindow::MainWindow(QWidget *parent)
         else
             ui->MENutiChk->setCheckState(Qt::Unchecked);
 
+        TmpState=config::hardwareInfoDPlastTime=configFile->value("HARDWAREINFO/HARDWAREINFO_LASTTIME").toUInt();
+        if(TmpState==true)
+            ui->MENutiChk->setCheckState(Qt::Checked);
+        else
+            ui->MENutiChk->setCheckState(Qt::Unchecked);
+
         //IMAGE INFO
-
-
 
         if(configFile->value("IMAGEINFO/IMAGEPATH").toBool()==true)
             loadImageFilePathFromConfig();
@@ -204,6 +213,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->GPUtmpChk,&QCheckBox::stateChanged,this,&MainWindow::saveHardwareInfoSetting);
     connect(ui->GPUMCutiChk,&QCheckBox::stateChanged,this,&MainWindow::saveHardwareInfoSetting);
     connect(ui->MENutiChk,&QCheckBox::stateChanged,this,&MainWindow::saveHardwareInfoSetting);
+    connect(ui->hwCycleTime,&QSpinBox::editingFinished,this,&MainWindow::saveHardwareInfoSetting);
+    connect(ui->hwLastTime,&QSpinBox::editingFinished,this,&MainWindow::saveHardwareInfoSetting);
 
     connect(ui->imgShowChk,&QCheckBox::stateChanged,this,&MainWindow::saveImageInfoSetting);
     //connect(ui->imgLoopTime,&QSpinBox::valueChanged,this,&MainWindow::saveImageInfoSetting);
@@ -359,6 +370,8 @@ void MainWindow::on_saveBtn_clicked()
 
 
     configFile->setValue("HARDWAREINFO/HARDWAREINFO_TIME",ui->hwCycleTime->value());
+    configFile->setValue("HARDWAREINFO/HARDWAREINFO_LASTTIME",ui->hwLastTime->value());
+
 
     if(ui->CPUutiChk->checkState()==Qt::Checked){
         config::hardwareInfo_CPUuti=true;
@@ -545,7 +558,8 @@ void MainWindow::saveHardwareInfoSetting()
     }else
         config::hardwareInfo_MENuti=false;
 
-
+    config::hardwareInfoDPtime = ui->hwCycleTime->value();
+    config::hardwareInfoDPlastTime = ui->hwLastTime->value();
 
     config::hardwareInfoReload();
     //需要添加加载图片参数的函数

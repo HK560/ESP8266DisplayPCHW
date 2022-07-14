@@ -6,6 +6,8 @@ bool config::setupPush=false;
 bool config::setupMinimize=false;
 bool config::hardwareInfo=false;
 int config::hardwareInfoDPtime=2;
+unsigned int config::hardwareInfoDPlastTime = 1000; //每一项持续时间ms
+
 
 bool config::hardwareInfo_CPUuti=false;
 bool config::hardwareInfo_CPUvolt=false;

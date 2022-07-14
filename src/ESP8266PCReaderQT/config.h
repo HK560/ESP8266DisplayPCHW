@@ -15,6 +15,7 @@ public:
 
     static bool hardwareInfo;//是否推送硬件信息
     static int hardwareInfoDPtime;//推送硬件信息循环次数
+    static unsigned int hardwareInfoDPlastTime; //每一项持续时间ms
     static bool hardwareInfo_CPUuti;
     static bool hardwareInfo_CPUvolt;
     static bool hardwareInfo_GPUvolt;
@@ -30,7 +31,7 @@ public:
     static bool imageInfo;//是否显示图片
     static int imageInfoLoopTime;//图片循环时间
     static double imageFps;
-
+   
 
     static void hardwareInfoReload();
     static void imageInfoReload();
