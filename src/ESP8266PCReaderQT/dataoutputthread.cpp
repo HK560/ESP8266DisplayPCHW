@@ -65,9 +65,11 @@ void dataOutputThread::outputData()
                     qDebug()<< allValueQT[k].name << allValueQT[k].state<<endl;
                     if (allValueQT[k].state == true) {
                         timer.start(config::hardwareInfoDPlastTime);
-                        qDebug()<<"发送"<<allValueQT[k].name;
+//                        qDebug()<<"发送"<<allValueQT[k].name;
                         while (timer.remainingTime()>0 &&config::startpush ) {
                             // qDebug()<< timer.remainingTime() << " times"<<endl;
+                            //!DA#NAME=VALUE?
+                            //!DA#CPU_Volt=1.2?
                             if(aida64ReaderForESP8266::readReg(allValueQT[k].strValueName,value )==true){ //  if(Pushdata(allValueQT[k].strValueName,value )==true){ 
                                 serial->write("!");
                                 serial->write("DA");
@@ -76,7 +78,7 @@ void dataOutputThread::outputData()
                                 serial->write("=");
                                 serial->write(value);
                                 serial->write("?");
-                                qDebug()<<"发送"<<allValueQT[k].name;
+//                                qDebug()<<"发送"<<allValueQT[k].name;
                                 if(!serial->waitForBytesWritten())   //这一句很关键，决定是否能发送成功
                                 {
                                     qDebug()<<"serial write error";
@@ -108,6 +110,7 @@ void dataOutputThread::outputData()
                         //            serial->write(tt);
                     if(config::imageInfo!=true)
                         break;
+                    //@$XXXXXXXXXXXXXXXXXXXXX
                         QByteArray fir,ed;
                         fir.resize(2);
                         ed.resize(2);
