@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"qmainwindow": "cpp",
+			"array": "cpp",
+			"deque": "cpp",
+			"list": "cpp",
+			"string": "cpp",
+			"unordered_map": "cpp",
+			"vector": "cpp",
+			"string_view": "cpp",
+			"initializer_list": "cpp",
+			"qvector": "cpp",
+			"qstring": "cpp",
+			"qmessagebox": "cpp",
+			"qdebug": "cpp",
+			"atomic": "cpp",
+			"*.tcc": "cpp",
+			"fstream": "cpp",
+			"sstream": "cpp",
+			"qobject": "cpp"
+		}
+	}
+}
