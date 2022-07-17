@@ -95,6 +95,10 @@ private slots:
 
     void on_fps_valueChanged(double arg1);
 
+    void on_udp_SettingsChanged();
+
+    void on_com_SettingsChanged();
+
 private:
     Ui::MainWindow *ui;
     ThreadController THC;

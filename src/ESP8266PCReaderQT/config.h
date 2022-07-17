@@ -27,6 +27,12 @@ public:
     static bool hardwareInfo_GPUuti;
     static bool hardwareInfo_MENuti;
 
+    static bool comEnabled;
+
+    //udp
+    static bool udpEnabled;
+    static QString udpAddress;
+
     static bool imageReady;//图片是否已经加载
     static bool imageInfo;//是否显示图片
     static int imageInfoLoopTime;//图片循环时间

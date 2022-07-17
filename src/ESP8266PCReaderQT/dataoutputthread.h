@@ -9,6 +9,9 @@
 #include "config.h"
 #include "imageinfo.h"
 #include <QTimer>
+#include <QUdpSocket>
+#include <QHostAddress>
+#include <QRegExpValidator>
 
 class dataOutputThread:public   QObject{
     Q_OBJECT
@@ -26,7 +29,7 @@ public slots:
     //void closeThread();
 private:
     QSerialPort *serial = nullptr;
-
+    QUdpSocket *socket = nullptr;
 };
 
 #endif // DATAOUTPUTTHREAD_H

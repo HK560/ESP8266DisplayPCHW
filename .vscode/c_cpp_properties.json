@@ -29,7 +29,8 @@
                 "D:\\Qt\\Qt5.12.12\\5.12.12\\mingw73_64\\include\\QtGui",
                 "D:\\Qt\\Qt5.12.12\\5.12.12\\mingw73_64\\include\\QtWidgets",
                 "D:\\Qt\\Qt5.12.12\\5.12.12\\mingw73_64\\include\\QtSerialPort",
-                "D:\\Qt\\Qt5.12.12\\5.12.12\\mingw73_64\\include\\QtCore"
+                "D:\\Qt\\Qt5.12.12\\5.12.12\\mingw73_64\\include\\QtCore",
+                "D:\\Qt\\Qt5.12.12\\5.12.12\\mingw73_64\\include\\QtNetwork"
             ],
             "forcedInclude": [],
             "cStandard": "c17",

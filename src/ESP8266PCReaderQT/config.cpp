@@ -8,6 +8,12 @@ bool config::hardwareInfo=false;
 int config::hardwareInfoDPtime=2;
 unsigned int config::hardwareInfoDPlastTime = 1000; //每一项持续时间ms
 
+//udp
+bool config::udpEnabled=false;
+QString config::udpAddress = "";
+
+bool config::comEnabled = false;
+
 
 bool config::hardwareInfo_CPUuti=false;
 bool config::hardwareInfo_CPUvolt=false;

@@ -4,6 +4,7 @@
 dataOutputThread::dataOutputThread(QObject *parent):QObject(parent)
 {
     // serial=new QSerialPort;
+    socket = new QUdpSocket(parent);
 }
 
 void dataOutputThread::openCom()
@@ -13,7 +14,7 @@ void dataOutputThread::openCom()
         serial->close();
         delete serial;
     }
-    serial= new QSerialPort;
+    serial= new QSerialPort(this);
     serial->setPortName(aida64ReaderForESP8266::portName);
     // if(serial->){
     //     emit shsOpen()owMessage("串口已打开");
@@ -36,7 +37,7 @@ void dataOutputThread::openCom()
 void dataOutputThread::outputData()
 {
     qDebug()<<"dataOutputThread::outputData()";
-    if(serial->isOpen()==false){
+    if(config::comEnabled&&serial->isOpen()==false){
         emit showMessage("串口未打开或未找到，请确认串口能否正常通信");
         emit outputState(false);
         config::startpush=false;
@@ -49,43 +50,66 @@ void dataOutputThread::outputData()
         config::startpush=false;
         return;
     }
+       QHostAddress address;
+    if(config::udpEnabled){
+        address.setAddress(config::udpAddress);
+    }
+
+
+    if(!config::comEnabled&&!config::udpEnabled){
+        //如果都没开启结束
+        config::startpush=false;
+        emit showMessage("串口通信和UDP通信都未启用，停止发送数据");
+        emit outputState(false);
+        return;
+    }
 
     while(emit outputState(config::startpush),config::startpush){//判断是否启动推送
-        qDebug( )<<"config::startpush"<<config::startpush;
+        // qDebug( )<<"config::startpush"<<config::startpush;
 
         QTimer timer;
         if(config::hardwareInfo==true){//输出硬件信息
-            config::hardwareInfoReload();
+            config::hardwareInfoReload();//获取硬件信息输出设置
             QByteArray value;
+            QByteArray udpData;
+//            udpData.clear();
             int DPtime=config::hardwareInfoDPtime;
-            while(DPtime-->0){
-                qDebug( )<<"config::hardwareInfoDPtime："<<config::hardwareInfoDPtime;
-                for (int k = 0; config::hardwareInfo==true&&k<10; ) {
-
-                    qDebug()<< allValueQT[k].name << allValueQT[k].state<<endl;
+            while(DPtime-->0){//硬件信息循环次数
+                // qDebug( )<<"config::hardwareInfoDPtime："<<config::hardwareInfoDPtime;
+                for (int k = 0; config::hardwareInfo==true&&k<10; ) {//轮询查询能输出的信息项目
+                    // qDebug()<< allValueQT[k].name << allValueQT[k].state<<endl;
                     if (allValueQT[k].state == true) {
-                        timer.start(config::hardwareInfoDPlastTime);
-//                        qDebug()<<"发送"<<allValueQT[k].name;
-                        while (timer.remainingTime()>0 &&config::startpush ) {
-                            // qDebug()<< timer.remainingTime() << " times"<<endl;
+                        timer.start(config::hardwareInfoDPlastTime);//计时
+                        while (timer.remainingTime()>0 &&config::startpush ) {//没到时就循环发送
                             //!DA#NAME=VALUE?
                             //!DA#CPU_Volt=1.2?
-                            if(aida64ReaderForESP8266::readReg(allValueQT[k].strValueName,value )==true){ //  if(Pushdata(allValueQT[k].strValueName,value )==true){ 
-                                serial->write("!");
-                                serial->write("DA");
-                                serial->write("#");
-                                serial->write(allValueQT[k].name.toUtf8());
-                                serial->write("=");
-                                serial->write(value);
-                                serial->write("?");
-//                                qDebug()<<"发送"<<allValueQT[k].name;
-                                if(!serial->waitForBytesWritten())   //这一句很关键，决定是否能发送成功
-                                {
-                                    qDebug()<<"serial write error";
+                            if(aida64ReaderForESP8266::readReg(allValueQT[k].strValueName,value )==true){ //读取值到value
+                                //  if(Pushdata(allValueQT[k].strValueName,value )==true){ 
+                                if(config::comEnabled){
+                                    serial->write("!");
+                                    serial->write("DA");
+                                    serial->write("#");
+                                    serial->write(allValueQT[k].name.toUtf8());
+                                    serial->write("=");
+                                    serial->write(value);
+                                    serial->write("?");
+                                    if (!serial->waitForBytesWritten())  //这一句很关键，决定是否能发送成功
+                                        qDebug() << "serial write error";
                                 }
+                                if(config::udpEnabled){
+                                    udpData.clear();
+                                    udpData.append("!DA#");
+                                    udpData.append(allValueQT[k].name.toUtf8());
+                                    udpData.append("=");
+                                    udpData.append(value);
+                                    udpData.append("?");
+                                    if(socket->writeDatagram(udpData,address,56000) < 0)
+                                        qDebug() <<"udp write error";
+                                }
+
                             }else
-                                qDebug()<<"发送失败";
-                            // Sleep(100);
+                                qDebug()<<"读取数据失败";
+                            Sleep(100);
                         }
                     }
                     k++;
@@ -108,9 +132,10 @@ void dataOutputThread::outputData()
                         //            serial->write(tt);
                         //            tt=new char(0x55);
                         //            serial->write(tt);
-                    if(config::imageInfo!=true)
-                        break;
+                    if(config::imageInfo)
                     //@$XXXXXXXXXXXXXXXXXXXXX
+
+                    if(config::comEnabled){
                         QByteArray fir,ed;
                         fir.resize(2);
                         ed.resize(2);
@@ -119,15 +144,21 @@ void dataOutputThread::outputData()
                         ed[1]='&';//0x22
                         serial->write(fir);
                         if(!serial->waitForBytesWritten(-1))   //这一句很关键，决定是否能发送成功
-                        {
                             qDebug()<<"serial write error";
-                        }
-
                         serial->write(imgInfoList[i].XBM_DATA);
                         serial->waitForBytesWritten(-1);
                         //serial->write(ed);
                         //serial->waitForBytesWritten(-1);
                         qDebug()<<"outputData";
+                    }
+
+                    if(config::udpEnabled){
+                        QByteArray udpDataImage;
+                        udpDataImage.append("@$");
+                        udpDataImage.append(imgInfoList[i].XBM_DATA);
+                        if (socket->writeDatagram(udpDataImage, address, 56000) < 0)
+                            qDebug() << "udp write error";
+                    }
                         //            tt=new char(0x22);
                         //            serial->write(tt);
                     //}

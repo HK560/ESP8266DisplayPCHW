@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "I:\\Desktop\\udptest"
 		}
 	],
 	"settings": {
@@ -23,7 +26,8 @@
 			"*.tcc": "cpp",
 			"fstream": "cpp",
 			"sstream": "cpp",
-			"qobject": "cpp"
+			"qobject": "cpp",
+			"qudpsocket": "cpp"
 		}
 	}
 }
