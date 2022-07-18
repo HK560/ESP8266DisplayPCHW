@@ -1,4 +1,4 @@
-#include "config.h"
+#include "include/config.h"
 
 
 bool config::startpush=false;

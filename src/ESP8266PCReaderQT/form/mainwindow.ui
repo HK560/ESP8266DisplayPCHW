@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>449</width>
-    <height>738</height>
+    <height>756</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -32,7 +32,7 @@
    <string notr="true">ESP8266_PCReader</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="src.qrc">
+   <iconset resource="../res/src.qrc">
     <normaloff>:/icon/avatar_hk560.jpg</normaloff>:/icon/avatar_hk560.jpg</iconset>
   </property>
   <property name="layoutDirection">
@@ -49,10 +49,22 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_11">
       <item>
-       <widget class="QLabel" name="title">
-        <property name="text">
-         <string>ESP8266PCReader</string>
+       <widget class="QFrame" name="frametitle">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
         </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <item>
+          <widget class="QLabel" name="title">
+           <property name="text">
+            <string>ESP8266PCReader</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>
@@ -234,19 +246,6 @@
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_3">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
                <layout class="QHBoxLayout" name="horizontalLayout_12">
                 <item>
                  <widget class="QLabel" name="label_5">
@@ -258,7 +257,7 @@
                 <item>
                  <widget class="QSpinBox" name="hwLastTime">
                   <property name="minimum">
-                   <number>100</number>
+                   <number>2000</number>
                   </property>
                   <property name="maximum">
                    <number>9999</number>
@@ -289,6 +288,19 @@
                  <number>20</number>
                 </property>
                </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </item>
@@ -836,7 +848,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="src.qrc"/>
+  <include location="../res/src.qrc"/>
  </resources>
  <connections/>
 </ui>

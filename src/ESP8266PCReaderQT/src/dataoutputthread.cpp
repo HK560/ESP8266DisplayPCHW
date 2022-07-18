@@ -1,4 +1,4 @@
-#include "dataoutputthread.h"
+#include "include/dataoutputthread.h"
 
 
 dataOutputThread::dataOutputThread(QObject *parent):QObject(parent)

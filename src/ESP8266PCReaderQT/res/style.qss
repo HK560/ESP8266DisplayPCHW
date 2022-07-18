@@ -11,7 +11,7 @@ QWidget{
 }
 
 QWidget#centralwidget{
-    background-color: #c3f6ff;
+    background-color: #ffffff;
     border-radius: 15px;
     /* border-image: url(:/bg/QSS_IMG/720p.jpg) */
 }
@@ -27,24 +27,36 @@ QMessageBox QLabel {
 }
 
 QGroupBox {
-    border: 1px solid white;
+    border: 1px solid #5c5c5cb9;
     
     padding: 5px;
     padding-top: 8px;
     margin: 3px;
 }
 
-QLabel#title,QLabel#labelHk560{
-    font-size: 20px;
-    font-style: italic;
-}
 
+
+QHBoxLayout#horizontalLayout_11{
+    border-radius: 20px;
+    background-color: #48a5fd;
+
+}
 QPushButton#exitBtn:hover{
     qproperty-icon: url(:/icon/exit.png);
     background-color: #48a5fd;
     border: transparent;
     
 
+}
+
+QLabel#title,QLabel#labelHk560{
+    font-size: 20px;
+    font-style: italic;
+}
+QFrame#frametitle{
+    background-color: #7be0ff;
+    border-radius: 20px;
+    border-style: solid;
 }
 QPushButton#exitBtn{
     qproperty-icon: url(:/icon/exit.png);
@@ -478,3 +490,5 @@ QScrollBar::left-arrow:horizontal {
 QScrollBar::right-arrow:horizontal {
     image: url(:/icon/go-next-symbolic.symbolic.png);
 }
+
+

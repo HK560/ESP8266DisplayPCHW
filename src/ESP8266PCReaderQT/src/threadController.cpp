@@ -1,4 +1,4 @@
-#include "threadController.h"
+#include "include/threadController.h"
 #include <QThread>
 #include <QDebug>
 

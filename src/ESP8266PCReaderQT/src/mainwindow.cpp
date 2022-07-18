@@ -1,9 +1,9 @@
-#include "mainwindow.h"
+#include "include/mainwindow.h"
 
 #include <QDebug>
 #include <QThread>
 
-#include "aida64readerforesp8266.h"
+#include "include/aida64readerforesp8266.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)

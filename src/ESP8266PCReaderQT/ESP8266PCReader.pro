@@ -6,7 +6,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 
-RC_FILE = res.rc
+RC_FILE = res/res.rc
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -20,26 +20,28 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    aida64readerforesp8266.cpp \
-    binarization.cpp \
-    config.cpp \
-    dataoutputthread.cpp \
-    imageinfo.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    threadController.cpp
+    src/aida64readerforesp8266.cpp \
+    src/binarization.cpp \
+    src/config.cpp \
+    src/dataoutputthread.cpp \
+    src/imageinfo.cpp \
+    src/main.cpp \
+    src/mainwindow.cpp \
+    src/threadController.cpp
+
 
 HEADERS += \
-    aida64readerforesp8266.h \
-    binarization.h \
-    config.h \
-    dataoutputthread.h \
-    imageinfo.h \
-    mainwindow.h \
-    threadController.h
+    include/aida64readerforesp8266.h \
+    include/binarization.h \
+    include/config.h \
+    include/dataoutputthread.h \
+    include/imageinfo.h \
+    include/mainwindow.h \
+    include/threadController.h
+
 
 FORMS += \
-    mainwindow.ui
+    form/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -47,8 +49,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    src.qrc
+    res/src.qrc
 
 DISTFILES += \
-    style.qss
+    res/style.qss
 

@@ -1,4 +1,4 @@
-#include "binarization.h"
+#include "include/binarization.h"
 
 CBinarization::CBinarization( QString imgPath )
     : threshold(0)

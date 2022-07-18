@@ -1,4 +1,4 @@
-#include "imageinfo.h"
+#include "include/imageinfo.h"
 
 imageInfo* imgInfoList=nullptr;
 int imgListSize=0;
