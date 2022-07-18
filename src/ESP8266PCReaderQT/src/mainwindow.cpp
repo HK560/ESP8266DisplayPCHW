@@ -17,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
     ui->comChoBox->clear();
-    QString ver = "0.2";
-    QString date = "2109171800";
+    QString ver = "0.3";
+    QString date = "22071800";
     ui->version->setText(QString("ESP8266_PCReader %1(%2)").arg(ver).arg(date));
 
     //找到可用串口
