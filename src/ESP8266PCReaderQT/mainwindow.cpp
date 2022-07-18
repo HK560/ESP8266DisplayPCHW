@@ -285,8 +285,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     if (config::setupPush == true) {
         qDebug() << "执行自动推送";
+        if(config::comEnabled)
+            THC.startOpenCom();
         config::startpush = true;
-        THC.startOpenCom();
+        // THC.startOpenCom();
         THC.startOutput();
     }
 
@@ -655,6 +657,10 @@ void MainWindow::on_udp_SettingsChanged() {
 }
 
 void MainWindow::on_com_SettingsChanged() {
+    if(!config::comOpened){
+        QMessageBox::warning(this,"警告", "请先打开发送数据再设置");
+        ui->comChk->setCheckState(Qt::Unchecked);
+    }
     config::comEnabled = ui->comChk->checkState() == Qt::Checked ? true : false;
     qDebug() << "com settings changed: " << config::comEnabled;
 }

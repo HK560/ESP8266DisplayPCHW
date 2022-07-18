@@ -31,6 +31,8 @@ bool config::imageInfo=false;
 int config::imageInfoLoopTime=1;
 double config::imageFps=25;
 
+bool config::comOpened = false;
+
 config::config()
 {
     QFileInfo info("./config.ini");

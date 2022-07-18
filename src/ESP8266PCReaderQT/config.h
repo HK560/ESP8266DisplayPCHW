@@ -42,6 +42,8 @@ public:
     static void hardwareInfoReload();
     static void imageInfoReload();
 
+    static bool comOpened;
+
     void setupconfig();
     void readconfig(QSettings config);
     void writeconfig(QSettings config);
@@ -49,5 +51,4 @@ public:
 #endif // CONFIG_H
 
 };
-
 

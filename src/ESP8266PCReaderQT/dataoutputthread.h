@@ -30,6 +30,8 @@ public slots:
 private:
     QSerialPort *serial = nullptr;
     QUdpSocket *socket = nullptr;
+
 };
+
 
 #endif // DATAOUTPUTTHREAD_H

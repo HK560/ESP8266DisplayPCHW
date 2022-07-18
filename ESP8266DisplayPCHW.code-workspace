@@ -27,7 +27,8 @@
 			"fstream": "cpp",
 			"sstream": "cpp",
 			"qobject": "cpp",
-			"qudpsocket": "cpp"
+			"qudpsocket": "cpp",
+			"qsettings": "cpp"
 		}
 	}
 }

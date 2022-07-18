@@ -13,6 +13,8 @@ void dataOutputThread::openCom()
     if(serial != nullptr){
         serial->close();
         delete serial;
+        serial = nullptr;
+        config::comOpened = false;
     }
     serial= new QSerialPort(this);
     serial->setPortName(aida64ReaderForESP8266::portName);
@@ -24,6 +26,7 @@ void dataOutputThread::openCom()
     if(serial->isOpen()==false){
         emit showMessage("串口未打开或未找到，请确认串口能否正常通信");
         emit outputState(false);
+        config::comOpened = false;
         qDebug()<<"comOpenFailed";
         return;}
     emit execResult(true);
@@ -32,6 +35,7 @@ void dataOutputThread::openCom()
     serial->setParity(QSerialPort::NoParity);
     serial->setStopBits(QSerialPort::OneStop);
     serial->setFlowControl(QSerialPort::NoFlowControl);
+    config::comOpened = true;
 }
 
 void dataOutputThread::outputData()
@@ -50,10 +54,10 @@ void dataOutputThread::outputData()
         config::startpush=false;
         return;
     }
-       QHostAddress address;
-    if(config::udpEnabled){
-        address.setAddress(config::udpAddress);
-    }
+    // QHostAddress address;
+    // if(config::udpEnabled){
+    //     address.setAddress(config::udpAddress);
+    // }
 
 
     if(!config::comEnabled&&!config::udpEnabled){
@@ -85,7 +89,7 @@ void dataOutputThread::outputData()
                             //!DA#CPU_Volt=1.2?
                             if(aida64ReaderForESP8266::readReg(allValueQT[k].strValueName,value )==true){ //读取值到value
                                 //  if(Pushdata(allValueQT[k].strValueName,value )==true){ 
-                                if(config::comEnabled){
+                                if(config::comEnabled&&config::comOpened){
                                     serial->write("!");
                                     serial->write("DA");
                                     serial->write("#");
@@ -103,7 +107,7 @@ void dataOutputThread::outputData()
                                     udpData.append("=");
                                     udpData.append(value);
                                     udpData.append("?");
-                                    if(socket->writeDatagram(udpData,address,56000) < 0)
+                                    if(socket->writeDatagram(udpData,QHostAddress(config::udpAddress),56000) < 0)
                                         qDebug() <<"udp write error";
                                 }
 
@@ -135,7 +139,7 @@ void dataOutputThread::outputData()
                     if(config::imageInfo)
                     //@$XXXXXXXXXXXXXXXXXXXXX
 
-                    if(config::comEnabled){
+                    if(config::comEnabled&&config::comOpened){
                         QByteArray fir,ed;
                         fir.resize(2);
                         ed.resize(2);
@@ -156,7 +160,7 @@ void dataOutputThread::outputData()
                         QByteArray udpDataImage;
                         udpDataImage.append("@$");
                         udpDataImage.append(imgInfoList[i].XBM_DATA);
-                        if (socket->writeDatagram(udpDataImage, address, 56000) < 0)
+                        if (socket->writeDatagram(udpDataImage,QHostAddress(config::udpAddress), 56000) < 0)
                             qDebug() << "udp write error";
                     }
                         //            tt=new char(0x22);
@@ -180,8 +184,9 @@ void dataOutputThread::closeCom()
     if(serial){
         serial->close();
         delete serial;
+        serial = nullptr;
+        config::comOpened = false;
     }
-
 }
 
 
