@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     // QFont f("微软雅黑",9);
-    QFile qss("../res/style.qss");
+    QFile qss("://qssf");
     if(!qss.open(QFile::ReadOnly)){
         qDebug()<<"open qss file failed";
     }

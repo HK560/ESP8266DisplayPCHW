@@ -8,5 +8,6 @@
         <file>icon/go-up-symbolic.symbolic.png</file>
         <file>icon/hk560_favicon.ico</file>
         <file>icon/object-select-symbolic.symbolic.png</file>
+        <file alias="qssf">style.qss</file>
     </qresource>
 </RCC>
