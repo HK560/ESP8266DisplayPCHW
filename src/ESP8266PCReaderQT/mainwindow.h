@@ -105,5 +105,20 @@ private:
     Ui::MainWindow *ui;
     ThreadController THC;
     QSystemTrayIcon* mySysTrayIcon;
+
+
+    //用于鼠标拖拽窗口
+    bool        m_bDrag;
+    QPoint      mouseStartPoint;
+    QPoint      windowTopLeftPoint;
+
+    bool PortInit();
+
+protected:
+    // 重写鼠标控制事件实现整个窗口拖拽移动
+    void mousePressEvent(QMouseEvent *event)override;
+    void mouseMoveEvent(QMouseEvent *event)override;
+    void mouseReleaseEvent(QMouseEvent *event)override;
+
 };
 #endif // MAINWINDOW_H

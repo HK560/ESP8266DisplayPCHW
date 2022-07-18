@@ -889,3 +889,35 @@ void MainWindow::on_exitBtn_clicked()
 
 
 
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton)
+    {
+        m_bDrag = true;
+        //获得鼠标的初始位置
+        mouseStartPoint = event->globalPos();
+        //mouseStartPoint = event->pos();
+        //获得窗口的初始位置
+        windowTopLeftPoint = this->frameGeometry().topLeft();
+    }
+}
+ 
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
+{
+    if(m_bDrag)
+    {
+        //获得鼠标移动的距离
+        QPoint distance = event->globalPos() - mouseStartPoint;
+        //改变窗口的位置
+        this->move(windowTopLeftPoint + distance);
+    }
+}
+ 
+void MainWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton)
+    {
+        m_bDrag = false;
+    }
+}
+ 
