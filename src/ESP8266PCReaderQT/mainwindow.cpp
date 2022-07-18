@@ -293,6 +293,14 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     // this->setFixedSize(390,500);
+    //ui
+    ui->menubar->hide();
+    ui->statusbar->hide();
+    ui->toolBar->hide();
+    ui->centralwidget->setFixedSize(sizeHint());
+    setFixedSize(sizeHint());
+    setWindowFlags(Qt::FramelessWindowHint);
+    setAttribute(Qt::WA_TranslucentBackground);
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -871,3 +879,13 @@ bool MainWindow::execState(const bool &state) {
     qDebug() << "execState:" << state;
     return state;
 }
+
+void MainWindow::on_exitBtn_clicked()
+{
+    on_stopBtn_clicked();
+    THC.startCloseCom();
+    exit(0);
+}
+
+
+

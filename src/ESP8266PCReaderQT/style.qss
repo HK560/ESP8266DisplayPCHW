@@ -26,21 +26,28 @@ QMessageBox QLabel {
     color: rgb(255, 255, 255);
 }
 
+QGroupBox {
+    border: 1px solid white;
+    
+    padding: 5px;
+    padding-top: 8px;
+    margin: 3px;
+}
 
-QLabel#mainlabel,QLabel#labelHk560{
+QLabel#title,QLabel#labelHk560{
     font-size: 20px;
     font-style: italic;
 }
 
 QPushButton#exitBtn:hover{
-    qproperty-icon: url(:/bg/QSS_IMG/exit.png);
+    qproperty-icon: url(:/icon/exit.png);
     background-color: #48a5fd;
     border: transparent;
-    background-size: 10px;
+    
 
 }
 QPushButton#exitBtn{
-    qproperty-icon: url(:/bg/QSS_IMG/exit.png);
+    qproperty-icon: url(:/icon/exit.png);
     background-color: transparent;
     border: transparent;
 }
@@ -142,10 +149,10 @@ QSpinBox::down-button:hover, QDoubleSpinBox::down-button:hover, QTimeEdit::down-
     background-color: qlineargradient(spread:pad, x1:0.5, y1:0, x2:0.5, y2:1, stop:0 #84afe5, stop:1 #1168e4);
 }
 QSpinBox::up-arrow, QDoubleSpinBox::up-arrow, QTimeEdit::up-arrow, QDateEdit::up-arrow, QDateTimeEdit::up-arrow {
-    image: url(:/bg/QSS_img/go-up-symbolic.symbolic.png);
+    image: url(:/icon/go-up-symbolic.symbolic.png);
 }
 QSpinBox::down-arrow, QDoubleSpinBox::down-arrow, QTimeEdit::down-arrow, QDateEdit::down-arrow, QDateTimeEdit::down-arrow {
-    image: url(:/bg/QSS_img/go-down-symbolic.symbolic.png);
+    image: url(:/icon/go-down-symbolic.symbolic.png);
 }
 QProgressBar {
     max-height: 8px;
@@ -242,7 +249,7 @@ QComboBox::drop-down {
     border-bottom-right-radius: 3px;
 }
 QComboBox::down-arrow {
-    image: url(:/bg/QSS_img/go-down-symbolic.symbolic.png); /*Adawaita icon thene*/
+    image: url(:/icon/go-down-symbolic.symbolic.png); /*Adawaita icon thene*/
 }
 
 QComboBox::down-arrow:on {
@@ -280,7 +287,7 @@ QCheckBox:hover {
     border-color: transparent;
 }
 QCheckBox::indicator:checked {
-    image: url(:/bg/QSSobject-select-symbolic.symbolic.png);
+    image: url(:/icon/QSSobject-select-symbolic.symbolic.png);
     height: 15px;
     width: 15px;
     border-style:solid;
@@ -460,14 +467,14 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal, QScrollBar::ad
     background: none;
 }
 QScrollBar::up-arrow:vertical {
-    image: url(:/bg/QSS_img/go-up-symbolic.symbolic.png);
+    image: url(:/icon/go-up-symbolic.symbolic.png);
 }
 QScrollBar::down-arrow:vertical {
-    image: url(:/bg/QSS_img/go-down-symbolic.symbolic.png);
+    image: url(:/icon/go-down-symbolic.symbolic.png);
 }
 QScrollBar::left-arrow:horizontal {
-    image: url(:/bg/QSS_img/go-previous-symbolic.symbolic.png);
+    image: url(:/icon/go-previous-symbolic.symbolic.png);
 }
 QScrollBar::right-arrow:horizontal {
-    image: url(:/bg/QSS_img/go-next-symbolic.symbolic.png);
+    image: url(:/icon/go-next-symbolic.symbolic.png);
 }

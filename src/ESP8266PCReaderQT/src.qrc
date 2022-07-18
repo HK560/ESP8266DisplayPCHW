@@ -1,5 +1,12 @@
 <RCC>
     <qresource prefix="/">
         <file>icon/avatar_hk560.jpg</file>
+        <file>icon/exit.png</file>
+        <file>icon/go-down-symbolic.symbolic.png</file>
+        <file>icon/go-next-symbolic.symbolic.png</file>
+        <file>icon/go-previous-symbolic.symbolic.png</file>
+        <file>icon/go-up-symbolic.symbolic.png</file>
+        <file>icon/hk560_favicon.ico</file>
+        <file>icon/object-select-symbolic.symbolic.png</file>
     </qresource>
 </RCC>

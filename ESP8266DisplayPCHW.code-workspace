@@ -28,7 +28,9 @@
 			"sstream": "cpp",
 			"qobject": "cpp",
 			"qudpsocket": "cpp",
-			"qsettings": "cpp"
+			"qsettings": "cpp",
+			"qtserialport": "cpp",
+			"qthread": "cpp"
 		}
 	}
 }

@@ -99,6 +99,8 @@ private slots:
 
     void on_com_SettingsChanged();
 
+    void on_exitBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     ThreadController THC;
