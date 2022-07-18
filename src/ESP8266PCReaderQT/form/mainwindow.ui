@@ -257,10 +257,13 @@
                 <item>
                  <widget class="QSpinBox" name="hwLastTime">
                   <property name="minimum">
-                   <number>2000</number>
+                   <number>100</number>
                   </property>
                   <property name="maximum">
                    <number>9999</number>
+                  </property>
+                  <property name="value">
+                   <number>1000</number>
                   </property>
                  </widget>
                 </item>

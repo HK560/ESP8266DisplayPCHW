@@ -178,12 +178,9 @@ MainWindow::MainWindow(QWidget *parent)
         else
             ui->MENutiChk->setCheckState(Qt::Unchecked);
 
-        TmpState = config::hardwareInfoDPlastTime =
-            configFile->value("HARDWAREINFO/HARDWAREINFO_LASTTIME").toUInt();
-        if (TmpState == true)
-            ui->MENutiChk->setCheckState(Qt::Checked);
-        else
-            ui->MENutiChk->setCheckState(Qt::Unchecked);
+        config::hardwareInfoDPlastTime =
+            configFile->value("HARDWAREINFO/HARDWAREINFO_LASTTIME").toInt();
+            ui->hwLastTime->setValue(configFile->value("HARDWAREINFO/HARDWAREINFO_LASTTIME").toInt());
 
         // IMAGE INFO
 
