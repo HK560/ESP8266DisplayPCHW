@@ -1,6 +1,6 @@
-//兼容上位机版本0.2
-//下位机程序版本ver2.0
-//版本说明：支持播放动画
+//兼容上位机版本0.3
+//下位机程序版本ver3.0
+//版本说明：支持udp通信
 #include <ESP8266WiFi.h>  //ESP8266基本网络功能
 #include <U8g2lib.h>
 #include <WiFiUdp.h>  //提供UDP相关功能
@@ -17,8 +17,8 @@ char ouputName[15], ouputData[15], ouputUnit[4];
 int couttime = 0;
 uint8_t frame[1024] = {};
 
-const char* ssid = "BlueXiaomi_13A";  //网络名称
-const char* password = "02316800";    //网络密码
+const char* ssid = "XXXXXX";  //网络名称 修改为你的wifi名字
+const char* password = "XXXXX";    //网络密码 修改为你的wifi密码
 
 WiFiUDP Udp;
 unsigned int localUdpPort = 56000;  // 本地端口号

@@ -323,7 +323,7 @@ void MainWindow::on_autoSetMsgBtn_clicked() {
     config::startpush = true;
     saveHardwareInfoSetting();
     saveImageInfoSetting();
-    on_udp_SettingsChanged();
+//    on_udp_SettingsChanged();
     // if(ui->hwChkBox->checkState()==Qt::Checked){
     //     config::hardwareInfo=true;
     // }else

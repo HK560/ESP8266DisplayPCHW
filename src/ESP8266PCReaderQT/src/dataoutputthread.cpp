@@ -41,7 +41,7 @@ void dataOutputThread::openCom()
 void dataOutputThread::outputData()
 {
     qDebug()<<"dataOutputThread::outputData()";
-    if(config::comEnabled&&serial->isOpen()==false){
+    if(config::comEnabled&&!config::comOpened){
         emit showMessage("串口未打开或未找到，请确认串口能否正常通信");
         emit outputState(false);
         config::startpush=false;
